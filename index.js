@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const data = require('./data.json')
 const fs = require('fs')
+const morgan = require('morgan')
 
 app.use(express.json())
 
@@ -35,6 +36,33 @@ app.get('/api/persons/:id', (req, res) => {
   }
 })
 
+/**
+ * Allows user to create a new phonebook entry.
+ */
+app.post('/api/persons', (req, res) => {
+  const body = req.body
+
+  if (!body.name || !body.number) {
+    return res.status(400).json({ error: 'content missing' })
+  } else if (data.some((person) => person.name === body.name)) {
+    return res.status(400).json({
+      error: 'name must be unique',
+    })
+  }
+  const person = {
+    name: body.name,
+    number: body.number,
+    id: generateId(),
+    date: new Date(),
+  }
+  const newData = data.concat(person)
+  fs.writeFileSync('./data.json', JSON.stringify(newData))
+  res.json(person)
+})
+
+/**
+ * Allows user to delete an existing phonebook entry.
+ */
 app.delete('/api/persons/:id', (req, res) => {
   const id = Number(req.params.id)
   const newData = data.filter((person) => person.id !== id)
