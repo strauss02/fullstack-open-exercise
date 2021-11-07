@@ -1,26 +1,27 @@
+/* ============== Import Tools =============== */
+
 const express = require('express')
 const app = express()
 const data = require('./data.json')
 const fs = require('fs')
 const morgan = require('morgan')
 
+/* ================ Middleware ============= */
+
 app.use(express.json())
-// app.use(
-//   morgan('tiny', function (req, res) {
-//     console.log('allah')
-//     return req.body.name
-//   })
-// )
 
 morgan.token('body', (req, res) => JSON.stringify(req.body))
 app.use(
   morgan(':method :url :status :req[content-length] :response-time ms - :body')
 )
+/* ================ Utility Functions ============= */
 
 const generateId = () => {
   const maxId = data.length > 0 ? Math.max(...data.map((n) => n.id)) : 0
   return maxId + 1
 }
+
+/* ================ Routing ============= */
 
 app.get('/api/persons', (req, res) => {
   res.send(data)
@@ -37,9 +38,7 @@ app.get('/api/info', (req, res) => {
  */
 app.get('/api/persons/:id', (req, res) => {
   const id = Number(req.params.id)
-  console.log(id)
   const person = data.find((person) => person.id === id)
-
   if (person) {
     res.json(person)
   } else {
@@ -53,6 +52,7 @@ app.get('/api/persons/:id', (req, res) => {
 app.post('/api/persons', (req, res) => {
   const body = req.body
 
+  // Assert content not empty
   if (!body.name || !body.number) {
     return res.status(400).json({ error: 'content missing' })
   } else if (data.some((person) => person.name === body.name)) {
@@ -82,74 +82,7 @@ app.delete('/api/persons/:id', (req, res) => {
   res.status(204).end()
 })
 
-/* =============================== 
-
-Previous task methods
-
-================================= */
-let notes = [
-  {
-    id: 1,
-    content: 'HTML is easy',
-    date: '2019-05-30T17:30:31.098Z',
-    important: true,
-  },
-  {
-    id: 2,
-    content: 'Browser can execute only Javascript',
-    date: '2019-05-30T18:39:34.091Z',
-    important: false,
-  },
-  {
-    id: 3,
-    content: 'GET and POST are the most important methods of HTTP protocol',
-    date: '2019-05-30T19:20:14.298Z',
-    important: true,
-  },
-]
-
-app.post('/api/notes', (req, res) => {
-  const body = req.body
-
-  if (!body.content) {
-    return res.status(404).json({ error: 'content missing' })
-  }
-  const note = {
-    content: body.content,
-    important: body.important || false,
-    date: new Date(),
-    id: generateId(),
-  }
-  notes = notes.concat(note)
-  res.json(note)
-})
-
-app.get('/', (req, res) => {
-  res.send('<h1>Hello World!</h1>')
-})
-
-app.get('/api/notes', (req, res) => {
-  res.json(notes)
-})
-
-app.get('/api/notes/:id', (req, res) => {
-  const id = Number(req.params.id)
-  console.log(id)
-  const note = notes.find((note) => note.id === id)
-
-  if (note) {
-    res.json(note)
-  } else {
-    res.status(404).end()
-  }
-})
-
-app.delete('/api/notes/:id', (req, res) => {
-  const id = Number(req.params.id)
-  notes = notes.filter((note) => note.id !== id)
-
-  res.status(204).end()
-})
+/* ================ Listening Port ============= */
 
 const PORT = 3001
 app.listen(PORT, () => console.log('server running on ', PORT))
