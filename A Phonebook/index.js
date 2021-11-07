@@ -1,7 +1,10 @@
 const { request, response } = require("express")
 const express = require("express")
 const app  = express()
+const morgan = require('morgan')
 app.use(express.json())
+morgan.token('body', (req, res) => JSON.stringify(req.body));
+app.use(morgan(':method :url :status :response-time ms - :res[content-length] :body - :req[content-length]'));
 
 let persons = [
     { 
@@ -56,7 +59,7 @@ app.delete("/api/persons/:id", (request,response)=>{
 })
 
 
-app.post("/api/persons", (request,response)=>{
+app.post("/api/persons", (request,response,next)=>{
     const body = request.body
     const parsonName = body.name
     const parsonNumber = body.number
@@ -79,6 +82,7 @@ app.post("/api/persons", (request,response)=>{
         response.json(person)
     }
 })
+
 
 
 const PORT = 3001
