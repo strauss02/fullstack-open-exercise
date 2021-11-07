@@ -3,7 +3,7 @@ const express = require("express")
 const app  = express()
 app.use(express.json())
 
-const persons = [
+let persons = [
     { 
       "id": 1,
       "name": "Arto Hellas", 
@@ -44,6 +44,39 @@ app.get("/api/persons/:id", (request,response)=>{
         response.json(person)
     } else{
         response.status(404).end()
+    }
+})
+
+
+
+app.delete("/api/persons/:id", (request,response)=>{
+    const id = Number(request.params.id)
+    persons = persons.filter(note => note.id !== id)
+    response.status(204).end()
+})
+
+
+app.post("/api/persons", (request,response)=>{
+    const body = request.body
+    const parsonName = body.name
+    const parsonNumber = body.number
+    const name = persons.find(person => person.name === parsonName)
+    if(!parsonName || !parsonNumber){
+        response.status(404).json({
+            error: 'name or number is missing'
+        })
+    } else if (name){
+        response.status(404).json({
+            error: 'name must be unique'
+        })
+    } else {
+        const person = {
+            id: Math.floor(Math.random() * 555),
+            name: body.name,
+            number: body.number,
+        }
+        persons = persons.concat(person)
+        response.json(person)
     }
 })
 
