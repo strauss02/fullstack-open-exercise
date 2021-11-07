@@ -23,8 +23,7 @@ router.get('/persons/:id', (req, res) => {
             res.json(person);
         }
     }
-    //TODO - error handler & throw error here
-    res.status(400).send(`Error : bad request - no person with ID ${reqId}`);
+    throw {"status": 400, "messege":  `bad request - no person with ID ${reqId}`};
 })
 
 //DELETE request by id (3.4)
