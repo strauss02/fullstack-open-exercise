@@ -1,8 +1,51 @@
 const express = require('express')
 const app = express()
+const data = require('./data.json')
 
 app.use(express.json())
 
+const generateId = () => {
+  const maxId = notes.length > 0 ? Math.max(...notes.map((n) => n.id)) : 0
+  return maxId + 1
+}
+
+app.get('/api/persons', (req, res) => {
+  res.send(data)
+})
+
+app.get('/api/info', (req, res) => {
+  res.send(
+    `Phonebook has info for ${data.length} people. <br><br> ${new Date()}`
+  )
+})
+
+/**
+ * Get a person according to his ID.
+ */
+app.get('/api/persons/:id', (req, res) => {
+  const id = Number(req.params.id)
+  console.log(id)
+  const person = data.find((person) => person.id === id)
+
+  if (person) {
+    res.json(person)
+  } else {
+    res.status(404).end()
+  }
+})
+
+app.delete('/api/persons/:id', (req, res) => {
+  const id = Number(req.params.id)
+  notes = notes.filter((note) => note.id !== id)
+
+  res.status(204).end()
+})
+
+/* =============================== 
+
+Previous task methods
+
+================================= */
 let notes = [
   {
     id: 1,
@@ -24,11 +67,6 @@ let notes = [
   },
 ]
 
-const generateId = () => {
-  const maxId = notes.length > 0 ? Math.max(...notes.map((n) => n.id)) : 0
-  return maxId + 1
-}
-
 app.post('/api/notes', (req, res) => {
   const body = req.body
 
@@ -41,9 +79,7 @@ app.post('/api/notes', (req, res) => {
     date: new Date(),
     id: generateId(),
   }
-
   notes = notes.concat(note)
-
   res.json(note)
 })
 

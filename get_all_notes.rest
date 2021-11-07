@@ -1,7 +1,4 @@
-POST  http://localhost:3001/api/notes
-Content-Type: application/json
+DELETE   http://localhost:3001/api/persons/4
 
-{
-  "content": "VSCODE Rest client",
-  "important": true
-}
+###
+
