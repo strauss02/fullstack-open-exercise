@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require("path");
 const fs = require("fs");
-const { throws } = require('assert');
-
+const {generateId} = require("../helpers/validate")
 // /api
 
 
@@ -34,9 +33,7 @@ router.delete("/persons/:id", (req, res) => {
         const reqId = req.params.id;
         const dataFilePath = path.resolve(__dirname, "../phoneBook.json");
         const phoneBookData = JSON.parse(fs.readFileSync(dataFilePath));
-        console.log(phoneBookData);
         const newPhoneBookData = phoneBookData.filter((person) => Number(person.id) !== Number(reqId));
-        console.log(newPhoneBookData);
         fs.writeFileSync(dataFilePath, JSON.stringify(newPhoneBookData));
         
         res.status(200).send(`Person ${reqId} is not on the list anymore!`).end();
@@ -45,6 +42,23 @@ router.delete("/persons/:id", (req, res) => {
     }
 })
 
+//Add a new person phone data gets in body {"phoneNumber": .... , "name": ....}
+router.post("/persons", (req, res) => {
+    try {
+        const name = req.body.name;
+        const phoneNumber = req.body.phoneNumber;
+        const id = generateId(); //Generate a unique id by using an external function
+        const dataFilePath = path.resolve(__dirname, "../phoneBook.json");
+        const phoneBookData = JSON.parse(fs.readFileSync(dataFilePath));
+        console.log(phoneBookData);
+        phoneBookData.push({"id": id, "name": name, "number": phoneNumber});
+        console.log(phoneBookData);
+        fs.writeFileSync(dataFilePath, JSON.stringify(phoneBookData));
+        res.send(true).end();
+    } catch (error) {
+        throw {"status": error.status, "messege": error.messege};
+    }
+})
 
 
 module.exports = router;
