@@ -1,0 +1,23 @@
+{
+  "name": "fullstack-open-exercise",
+  "version": "1.0.0",
+  "description": "Topics:\r 1. Nodejs\r 2. Express\r 3. Deployment\r 4. MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/strauss02/fullstack-open-exercise.git"
+  },
+  "author": "Amit Fikler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/strauss02/fullstack-open-exercise/issues"
+  },
+  "homepage": "https://github.com/strauss02/fullstack-open-exercise#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
