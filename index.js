@@ -5,9 +5,20 @@ const fs = require('fs')
 const morgan = require('morgan')
 
 app.use(express.json())
+// app.use(
+//   morgan('tiny', function (req, res) {
+//     console.log('allah')
+//     return req.body.name
+//   })
+// )
+
+morgan.token('body', (req, res) => JSON.stringify(req.body))
+app.use(
+  morgan(':method :url :status :req[content-length] :response-time ms - :body')
+)
 
 const generateId = () => {
-  const maxId = notes.length > 0 ? Math.max(...notes.map((n) => n.id)) : 0
+  const maxId = data.length > 0 ? Math.max(...data.map((n) => n.id)) : 0
   return maxId + 1
 }
 
