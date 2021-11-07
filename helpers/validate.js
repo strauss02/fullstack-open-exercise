@@ -15,4 +15,15 @@ function generateId() {
     return id;
 }
 
-module.exports = {generateId};
+//Gets name and path to the data and check if he is uniq 
+function validateName(name, path) {
+    const phoneBookData = JSON.parse(fs.readFileSync(path));
+    for (const person of phoneBookData) {
+        if (String(person.name) === String(name)) {
+            return false; //The name already exists
+        }
+    }
+    return true;
+}
+
+module.exports = {generateId, validateName};

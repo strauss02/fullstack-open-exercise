@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require("path");
 const fs = require("fs");
-const {generateId} = require("../helpers/validate")
+const {generateId, validateName} = require("../helpers/validate")
 // /api
 
 
@@ -42,17 +42,21 @@ router.delete("/persons/:id", (req, res) => {
     }
 })
 
-//Add a new person phone data gets in body {"phoneNumber": .... , "name": ....}
+//Add a new person phone data gets in body {"phoneNumber": .... , "name": ....} (3.5 + 3.6)
 router.post("/persons", (req, res) => {
     try {
         const name = req.body.name;
         const phoneNumber = req.body.phoneNumber;
+        if (!name || !phoneNumber) {
+            throw {"status": 400, "messege": "Must enter name and number"};
+        }
         const id = generateId(); //Generate a unique id by using an external function
         const dataFilePath = path.resolve(__dirname, "../phoneBook.json");
         const phoneBookData = JSON.parse(fs.readFileSync(dataFilePath));
-        console.log(phoneBookData);
+        if (!validateName(name, dataFilePath)) {
+            throw {"status": 400, "messege": `The name ${name} is not available, try another name`};
+        }
         phoneBookData.push({"id": id, "name": name, "number": phoneNumber});
-        console.log(phoneBookData);
         fs.writeFileSync(dataFilePath, JSON.stringify(phoneBookData));
         res.send(true).end();
     } catch (error) {
