@@ -4,8 +4,8 @@
 
 * ### [ ] a. Node.js and Express
     * [X] Reading
-    * [ ] Exercises 3.1.-3.6.
-    * [ ] Exercises 3.7.-3.8.
+    * [X] Exercises 3.1.-3.6.
+    * [X] Exercises 3.7.-3.8.
 * ### [ ] b. Deploying app to internet
     * [ ] Reading
     * [ ] Exercises 3.9.-3.11.
