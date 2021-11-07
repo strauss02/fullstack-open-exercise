@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const data = require('./data.json')
+const fs = require('fs')
 
 app.use(express.json())
 
@@ -36,7 +37,8 @@ app.get('/api/persons/:id', (req, res) => {
 
 app.delete('/api/persons/:id', (req, res) => {
   const id = Number(req.params.id)
-  notes = notes.filter((note) => note.id !== id)
+  const newData = data.filter((person) => person.id !== id)
+  fs.writeFileSync('./data.json', JSON.stringify(newData))
 
   res.status(204).end()
 })
