@@ -82,7 +82,7 @@ app.post("/api/persons", (request,response)=>{
             name: body.name,
             number: body.number,
         };
-        persons = persons.concat(person);
+        persons.unshift(person);
         response.json(person);
     }
 })
