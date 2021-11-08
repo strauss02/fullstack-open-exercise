@@ -62,7 +62,7 @@ async function addContact() {
   const nameField = document.getElementById("contectName").value;
   const numberField = document.getElementById("phoneNumber").value;
   try {
-    await axios({
+    const addContact = await axios({
       method: "POST",
       url: "/api/persons",
       data: {
@@ -73,8 +73,9 @@ async function addContact() {
         "Content-Type": "application/json",
       },
     });
+    alert(addContact.data.message);
   } catch (err) {
-    console.log(err.message);
+    alert(err.response.data.message);
   }
 }
 
@@ -83,7 +84,7 @@ async function removeContact() {
     const numberField = Number(
       document.getElementById("contact-id").textContent
     );
-    await axios({
+    const removeContact = await axios({
       method: "DELETE",
       url: `/api/persons/${numberField}/remove`,
       data: {},
@@ -91,8 +92,9 @@ async function removeContact() {
         "Content-Type": "application/json",
       },
     });
+    alert(removeContact.data.message);
   } catch (err) {
-    console.log(err.message);
+    alert(err.response.data.message);
   }
 }
 

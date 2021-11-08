@@ -62,7 +62,7 @@ apiRouter.get("/persons/:id", (req, res) => {
     const contact = dataBase.find(({ id }) => id === Number(req.params.id));
     res.json(contact);
   } catch (err) {
-    res.status(404).json({ message: "no such person", status: 404 });
+    res.status(404).json({ message: "no such contact", status: 404 });
   }
 });
 
@@ -74,7 +74,9 @@ apiRouter.post(
     let dataBase = returnDataBase();
     dataBase.push(new Person(req.body.name, req.body.number));
     saveDataBase(dataBase);
-    res.json(dataBase);
+    res.status(200).json({
+      message: "Success! Contact was added successfully",
+    });
   }
 );
 
@@ -84,7 +86,9 @@ apiRouter.delete("/persons/:id/remove", middlewareNameNotExist, (req, res) => {
     (contact) => contact.id !== Number(req.params.id)
   );
   saveDataBase(newdataBase);
-  res.json(newdataBase);
+  res.status(200).json({
+    message: "Success! Contact was deleted successfully",
+  });
 });
 
 module.exports = apiRouter;
