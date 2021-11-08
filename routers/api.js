@@ -3,13 +3,14 @@ const router = express.Router();
 const path = require("path");
 const fs = require("fs");
 const {generateId, validateName} = require("../helpers/validate")
+const dataFilePath = path.resolve(__dirname, "../phoneBook.json");
+
 // /api
 
 
 //Get request for phoneBook data (3.1)
 router.get('/persons', (req, res) => {
     try {
-        const dataFilePath = path.resolve(__dirname, "../phoneBook.json");
         const phoneBookData = JSON.parse(fs.readFileSync(dataFilePath));
         res.json(phoneBookData);
     } catch (error) {
@@ -21,7 +22,6 @@ router.get('/persons', (req, res) => {
 router.get('/persons/:id', (req, res) => {
     try {
         const reqId = req.params.id;
-        const dataFilePath = path.resolve(__dirname, "../phoneBook.json");
         const phoneBookData = JSON.parse(fs.readFileSync(dataFilePath));
         for (const person of phoneBookData) {
             //If the ID matches, you will return the object that match in the phonebook
@@ -39,7 +39,6 @@ router.get('/persons/:id', (req, res) => {
 router.delete("/persons/:id", (req, res) => {
     try {
         const reqId = req.params.id;
-        const dataFilePath = path.resolve(__dirname, "../phoneBook.json");
         const phoneBookData = JSON.parse(fs.readFileSync(dataFilePath));
         const newPhoneBookData = phoneBookData.filter((person) => Number(person.id) !== Number(reqId)); //Filter objects with the given id
         fs.writeFileSync(dataFilePath, JSON.stringify(newPhoneBookData));
@@ -60,7 +59,6 @@ router.post("/persons", (req, res) => {
             throw {"status": 400, "messege": "Must enter name and number"};
         }
         const id = generateId(); //Generate a unique id by using an external function
-        const dataFilePath = path.resolve(__dirname, "../phoneBook.json");
         const phoneBookData = JSON.parse(fs.readFileSync(dataFilePath));
         //Check if the name is unique base on "validateName" function
         if (!validateName(name, dataFilePath)) {

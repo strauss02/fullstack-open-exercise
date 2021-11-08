@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
+    <script src="index.js" defer></script>
+    <title>PhoneBook</title>
+</head>
+<body>
+    <h1> <i class="far fa-address-book"></i> PhoneBook </h1>
+
+    <div id="error-div"></div>
+    
+    <div id="info-div"></div>
+
+    <button id="show-add"><i class="fas fa-user-plus"></i> Add new contact</button>
+    <div id="add-content" class="add-content">
+        <h2>Add new contact</h2>
+        <div id="inputs-div">
+            <input id ="name-input" class="add-input" placeholder="Name">
+            <input id ="number-input" class="add-input" placeholder="Phone number">
+         </div>
+         <button id="add-btn"> <i class="fas fa-user-plus"></i> </button>
+         <button id="close-btn"> <i class="far fa-window-close"></i> </button>
+    </div> 
+
+   <div id="phonebook-data">
+       <h2> Your contacts </h2>
+       <input id="seaech-contact" placeholder="🔎search...">
+   </div>
+</body>
+</html>
