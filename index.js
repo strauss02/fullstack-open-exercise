@@ -5,9 +5,11 @@ const app = express()
 const data = require('./data.json')
 const fs = require('fs')
 const morgan = require('morgan')
+const cors = require('cors')
 
 /* ================ Middleware ============= */
 
+app.use(cors())
 app.use(express.json())
 
 morgan.token('body', (req, res) => JSON.stringify(req.body))
