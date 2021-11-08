@@ -29,7 +29,7 @@ router.get('/persons/:id', (req, res) => {
                 res.json(person);
             }
         }
-        throw {"status": 400, "messege":  `bad request - no person with ID ${reqId}`};
+        throw {"status": 404, "messege":  `bad request - no person with ID ${reqId}`};
     } catch (error) {
         throw {"status": error.status, "messege": error.messege};
     }
@@ -44,7 +44,7 @@ router.delete("/persons/:id", (req, res) => {
         const newPhoneBookData = phoneBookData.filter((person) => Number(person.id) !== Number(reqId)); //Filter objects with the given id
         fs.writeFileSync(dataFilePath, JSON.stringify(newPhoneBookData));
         
-        res.status(200).send(`Person ${reqId} is not on the list anymore!`).end();
+        res.status(204).send(`Person ${reqId} is not on the list anymore!`).end();
     } catch (error) {
         throw {"status": error.status, "messege": error.messege};
     }
