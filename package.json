@@ -2,10 +2,10 @@
   "name": "fullstack-open-exercise",
   "version": "1.0.0",
   "description": "Topics:\r 1. Nodejs\r 2. Express\r 3. Deployment\r 4. MongoDB",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
