@@ -97,7 +97,7 @@ async function removeContact() {
 }
 
 document.getElementById("removeContact").addEventListener("click", (e) => {
-  e.preventDefault();
+  e.stopImmediatePropagation();
   removeContact();
 });
 
