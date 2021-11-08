@@ -15,7 +15,7 @@ async function ganeratePhoneBook() {
   try {
     const phonebookJson = await axios({
       method: "GET",
-      url: "http://localhost:3001/api/persons",
+      url: "/api/persons",
       data: {},
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +40,7 @@ async function showContactDetails(selectedContact) {
   try {
     const contactDetails = await axios({
       method: "GET",
-      url: `http://localhost:3001/api/persons/${selectedContact}`,
+      url: `/api/persons/${selectedContact}`,
       data: {},
       headers: {
         "Content-Type": "application/json",
@@ -64,7 +64,7 @@ async function addContact() {
   try {
     await axios({
       method: "POST",
-      url: "http://localhost:3001/api/persons",
+      url: "/api/persons",
       data: {
         name: nameField,
         number: numberField,
@@ -85,7 +85,7 @@ async function removeContact() {
     );
     await axios({
       method: "DELETE",
-      url: `http://localhost:3001/api/persons/${numberField}/remove`,
+      url: `/api/persons/${numberField}/remove`,
       data: {},
       headers: {
         "Content-Type": "application/json",
