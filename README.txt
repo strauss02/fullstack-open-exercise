@@ -32,3 +32,24 @@
 
 7. package.json add scripts: "dev": "nodemon app.js", "start": "node app.js",
 8.
+
+
+
+
+
+
+
+// Code Examples:
+Filter:
+app.delete("/api/persons/:id", (request,response)=>{
+    const id = Number(request.params.id);
+    persons = persons.filter(note => note.id !== id);
+    response.status(204).end();
+});
+
+
+Distracture:
+const {
+  middlewareServerError,
+  middlewarePageNotFound,
+} = require("./middleware/errorhandle");

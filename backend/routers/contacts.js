@@ -3,7 +3,11 @@ const express = require("express");
 const apiRouter = express.Router();
 const fs = require("fs");
 const path = require("path");
-const errorMiddleware = require("../middleware/errorhandle");
+const {
+  middlewareMissingNameOrNumber,
+  middlewareNameAlreadyExist,
+  middlewareNameNotExist,
+} = require("../middleware/errorhandle");
 
 /*
     get database
@@ -24,11 +28,24 @@ function saveDataBase(dataBaseJson) {
 }
 
 /*
+  create new id
+*/
+function returnID() {
+  let database = returnDataBase();
+  let currentId = Math.floor(Math.random() * 200);
+  if (database.find(({ id }) => id === currentId)) {
+    returnID();
+  } else {
+    return currentId;
+  }
+}
+
+/*
   create new contact
 */
 class Person {
   constructor(name, phoneNumber) {
-    this.id = Math.floor(Math.random() * 200);
+    this.id = returnID();
     this.name = name;
     this.number = phoneNumber;
   }
@@ -50,8 +67,8 @@ apiRouter.get("/persons/:id", (req, res) => {
 
 apiRouter.post(
   "/persons",
-  errorMiddleware.middlewareMissingNameOrNumber,
-  errorMiddleware.middlewareNameAlreadyExist,
+  middlewareMissingNameOrNumber,
+  middlewareNameAlreadyExist,
   (req, res) => {
     let dataBase = returnDataBase();
     dataBase.push(new Person(req.body.name, req.body.number));
@@ -60,18 +77,14 @@ apiRouter.post(
   }
 );
 
-apiRouter.delete("/persons/:id/remove", (req, res) => {
+apiRouter.delete("/persons/:id/remove", middlewareNameNotExist, (req, res) => {
   let dataBase = returnDataBase();
-  try {
-    const currentUser = dataBase.indexOf(
-      dataBase.find(({ id }) => id === req.params.id)
-    );
-    dataBase.splice(currentUser, 1);
-    saveDataBase(dataBase);
-    res.json(dataBase);
-  } catch {
-    res.status(404).json({ message: "no such person", status: 404 });
-  }
+  const currentUser = dataBase.indexOf(
+    dataBase.find(({ id }) => id === req.params.id)
+  );
+  dataBase.splice(currentUser, 1);
+  saveDataBase(dataBase);
+  res.json(dataBase);
 });
 
 module.exports = apiRouter;

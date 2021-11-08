@@ -50,7 +50,7 @@ function middlewareMissingNameOrNumber(req, res, next) {
     next();
   } else {
     res.status(401).json({
-      message: "contact already exist",
+      message: "must include name and number",
       status: 401,
     });
   }
@@ -69,6 +69,25 @@ function middlewareNameAlreadyExist(req, res, next) {
     next();
   } else {
     res.status(404).json({
+      message: "contact already exist",
+      status: 404,
+    });
+  }
+}
+
+/*
+   The name not exists in the phonebook for -Delete
+*/
+function middlewareNameNotExist(req, res, next) {
+  let dataBase = returnDataBase();
+  if (
+    dataBase[
+      dataBase.indexOf(dataBase.find(({ name }) => name === req.body.name))
+    ]
+  ) {
+    next();
+  } else {
+    res.status(404).json({
       message: "contact not exist",
       status: 404,
     });
@@ -80,4 +99,5 @@ module.exports = {
   middlewarePageNotFound,
   middlewareMissingNameOrNumber,
   middlewareNameAlreadyExist,
+  middlewareNameNotExist,
 };

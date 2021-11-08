@@ -4,7 +4,10 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
-const errorMiddleware = require("./middleware/errorhandle");
+const {
+  middlewareServerError,
+  middlewarePageNotFound,
+} = require("./middleware/errorhandle");
 
 const apiRouter = require("./routers/contacts");
 const infoRouter = require("./routers/info");
@@ -12,8 +15,8 @@ const infoRouter = require("./routers/info");
 app.use(express.json());
 app.use(cors());
 
-app.use(errorMiddleware.middlewareServerError);
-app.use(errorMiddleware.middlewarePageNotFound);
+app.use(middlewareServerError);
+app.use(middlewarePageNotFound);
 
 morgan.token("body", (req, res) => JSON.stringify(req.body));
 app.use(
