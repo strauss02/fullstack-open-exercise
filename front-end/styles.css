@@ -1,0 +1,27 @@
+body {
+    font-family: 'Staatliches', cursive;
+    font-size: 16px;
+    color: #222;
+    background-color:#869296;
+    background-image: linear-gradient(315deg, #829196 0%, #c1cdd6 74%);
+    text-align: center;
+    line-height: 1.4em;
+}
+
+h1 {
+    font-family: 'Staatliches', cursive;
+    letter-spacing: 4px;
+    font-size: 3em;
+    color: whitesmoke;
+}
+
+.phone-member-div {
+    border-style: solid;
+    border-color: #222;
+    border-radius: 0.75em;
+    border-width: 0.2em;
+    margin: 1em;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em;
+}
