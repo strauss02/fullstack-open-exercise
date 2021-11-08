@@ -45,14 +45,17 @@
               />
             </div>
             <div style="display: flex">
-              <button style="margin: 5px; width: 50%" type="submit" href="/">
+              <button
+                id="addContact"
+                style="margin: 5px; width: 50%"
+                type="submit"
+              >
                 Add Contact+
               </button>
               <select
                 id="select-phonebook"
                 style="margin: 5px; width: 50%; text-align: center"
                 type="submit"
-                href="/"
               ></select>
             </div>
             <div id="contact-div">
@@ -61,11 +64,14 @@
               <p>Contact Name: <span id="contact-name"></span></p>
               <p>Contact Number: <span id="contact-number"></span></p>
               <div style="display: flex">
-                <button style="margin: 5px; background-color: red">
-                  remove
+                <button
+                  id="removeContact"
+                  style="margin: 5px; background-color: red"
+                >
+                  remove Contact
                 </button>
                 <button style="margin: 5px; background-color: green">
-                  call
+                  call Contact
                 </button>
               </div>
             </div>

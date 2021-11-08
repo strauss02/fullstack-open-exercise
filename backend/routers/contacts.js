@@ -80,12 +80,11 @@ apiRouter.post(
 
 apiRouter.delete("/persons/:id/remove", middlewareNameNotExist, (req, res) => {
   let dataBase = returnDataBase();
-  const currentUser = dataBase.indexOf(
-    dataBase.find(({ id }) => id === req.params.id)
+  let newdataBase = dataBase.filter(
+    (contact) => contact.id !== Number(req.params.id)
   );
-  dataBase.splice(currentUser, 1);
-  saveDataBase(dataBase);
-  res.json(dataBase);
+  saveDataBase(newdataBase);
+  res.json(newdataBase);
 });
 
 module.exports = apiRouter;

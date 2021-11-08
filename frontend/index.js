@@ -53,8 +53,8 @@ async function showContactDetails(selectedContact) {
 }
 
 document.getElementById("select-phonebook").addEventListener("change", (e) => {
+  e.stopImmediatePropagation();
   e.preventDefault();
-  console.log(e.target.value);
   showContactDetails(e.target.value);
 });
 
@@ -78,11 +78,33 @@ async function addContact() {
   }
 }
 
-document.getElementById("addContact").addEventListener("click", (e) => {
-  addContact();
+async function removeContact() {
+  try {
+    const numberField = Number(
+      document.getElementById("contact-id").textContent
+    );
+    await axios({
+      method: "DELETE",
+      url: `http://localhost:3001/api/persons/${numberField}/remove`,
+      data: {},
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (err) {
+    console.log(err.message);
+  }
+}
+
+document.getElementById("removeContact").addEventListener("click", (e) => {
+  e.preventDefault();
+  removeContact();
 });
 
-function removeContact() {}
+document.getElementById("addContact").addEventListener("click", (e) => {
+  e.stopImmediatePropagation();
+  addContact();
+});
 
 window.addEventListener("load", (e) => {
   ganeratePhoneBook();

@@ -82,7 +82,7 @@ function middlewareNameNotExist(req, res, next) {
   let dataBase = returnDataBase();
   if (
     dataBase[
-      dataBase.indexOf(dataBase.find(({ name }) => name === req.body.name))
+      dataBase.indexOf(dataBase.find(({ id }) => id === Number(req.params.id)))
     ]
   ) {
     next();
