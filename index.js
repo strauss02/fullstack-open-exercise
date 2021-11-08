@@ -5,7 +5,7 @@ const cors = require("cors");
 const PORT = process.env.PORT || 3001;
 const infoRouter = require("./routers/info");
 const apiRouter = require("./routers/api");
-const morgan = require('morgan');
+// const morgan = require('morgan');
 //MiddleWares
 const {errorHandlerMiddleware} = require("./middlewares/errorHandler");
 
@@ -23,8 +23,8 @@ app.get("/", (req, res) => {
 });
 
 // Use morgen as middleware (3.7 + 3.8)
-morgan.token('body', (req, res) => JSON.stringify(req.body))
-app.use( morgan(':method :url :status :req[content-length] :response-time ms - :body') )
+// morgan.token('body', (req, res) => JSON.stringify(req.body))
+// app.use( morgan(':method :url :status :req[content-length] :response-time ms - :body') )
 
 //Routers Use
 app.use('/api', apiRouter);
