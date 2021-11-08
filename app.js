@@ -7,15 +7,17 @@ const fs = require('fs')
 const morgan = require('morgan')
 const cors = require('cors')
 
+const errorHandler = require('./errorHandler.js')
+
 /* ================ Middleware ============= */
 
 app.use(cors())
 app.use(express.json())
 
-morgan.token('body', (req, res) => JSON.stringify(req.body))
-app.use(
-  morgan(':method :url :status :req[content-length] :response-time ms - :body')
-)
+// morgan.token('body', (req, res) => JSON.stringify(req.body))
+// app.use(
+//   morgan(':method :url :status :req[content-length] :response-time ms - :body')
+// )
 /* ================ Utility Functions ============= */
 
 const generateId = () => {
@@ -85,6 +87,8 @@ app.delete('/api/persons/:id', (req, res) => {
 
   res.status(204).end()
 })
+
+app.use(errorHandler)
 
 /* ================ Listening Port ============= */
 
