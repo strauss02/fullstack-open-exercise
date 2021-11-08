@@ -22,32 +22,57 @@
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700"
           rel="stylesheet"
         />
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
       </head>
       <body>
         <div class="main-block">
-          <div class="left-part">
-            <i class="fas fa-envelope"></i>
-            <i class="fas fa-at"></i>
-            <i class="fas fa-mail-bulk"></i>
-          </div>
           <form action="/">
             <h1>Contact Us</h1>
             <div class="info">
               <input
+                id="contectName"
                 class="fname"
                 type="text"
                 name="name"
                 placeholder="Full name"
               />
-              <input type="text" name="name" placeholder="Email" />
-              <input type="text" name="name" placeholder="Phone number" />
-              <input type="text" name="name" placeholder="Website" />
+
+              <input
+                id="phoneNumber"
+                type="text"
+                name="name"
+                placeholder="Phone number"
+              />
             </div>
-            <p>Message</p>
-            <div>
-              <textarea rows="4"></textarea>
+            <div style="display: flex">
+              <button style="margin: 5px; width: 50%" type="submit" href="/">
+                Add Contact+
+              </button>
+              <select
+                style="margin: 5px; width: 50%; text-align: center"
+                type="submit"
+                href="/"
+              >
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
             </div>
-            <button type="submit" href="/">Submit</button>
+            <div id="contact-div">
+              <h3>Details</h3>
+              <p>Contact ID:</p>
+              <p>Contact Name:</p>
+              <p>Contact Number:</p>
+              <div style="display: flex">
+                <button style="margin: 5px; background-color: red">
+                  remove
+                </button>
+                <button style="margin: 5px; background-color: green">
+                  call
+                </button>
+              </div>
+            </div>
           </form>
         </div>
       </body>
