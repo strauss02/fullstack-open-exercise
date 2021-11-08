@@ -1,0 +1,31 @@
+{
+  "name": "fullstack-open-exercise",
+  "version": "1.0.0",
+  "description": "Topics:\r 1. Nodejs\r 2. Express\r 3. Deployment\r 4. MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon ./backend/app.js",
+    "start": "node ./backend/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/strauss02/fullstack-open-exercise.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/strauss02/fullstack-open-exercise/issues"
+  },
+  "homepage": "https://github.com/strauss02/fullstack-open-exercise#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14",
+    "morgan": "^1.10.0"
+  }
+}
