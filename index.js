@@ -3,12 +3,12 @@ const express = require('express')
 const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT || 3001;
-const path = require("path");
-const fs = require("fs");
-const moment = require("moment");
 const infoRouter = require("./routers/info");
 const apiRouter = require("./routers/api");
 const morgan = require('morgan');
+//MiddleWares
+const {errorHandlerMiddleware} = require("./middlewares/errorHandler");
+
 
 app.use(cors({
     origin: "*"
@@ -23,7 +23,8 @@ app.use( morgan(':method :url :status :req[content-length] :response-time ms - :
 //Routers Use
 app.use('/api', apiRouter);
 app.use('/info', infoRouter);
-  
+
+app.use(errorHandlerMiddleware);
   
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
