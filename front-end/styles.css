@@ -6,6 +6,10 @@ body {
     background-image: linear-gradient(315deg, #829196 0%, #c1cdd6 74%);
     text-align: center;
     line-height: 1.4em;
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+    font-size: 1.5em;
 }
 
 h1 {
@@ -24,4 +28,16 @@ h1 {
     display: flex;
     justify-content: space-between;
     padding: 0.5em;
+}
+
+.delte-btn {
+    background-color: red;
+    color: whitesmoke;
+    border-radius: 0.75em;
+    cursor: pointer;
+
+}
+.delte-btn:hover {
+    background-color: whitesmoke;
+    color: red;
 }
