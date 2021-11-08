@@ -23,12 +23,17 @@ main {
   padding-top: 2rem;
 }
 
+.entries-container {
+  height: 100%;
+}
+
 .entry {
   border: 1px solid black;
   border-radius: 50em;
   font-size: 1rem;
   width: 5rem;
   margin: 1rem auto;
+  width: 400px;
 }
 
 .entry:hover {

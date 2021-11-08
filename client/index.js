@@ -8,18 +8,22 @@ function createEntry(id, name, number) {
   const entry = document.createElement('div')
   entry.className = 'entry'
   entry.textContent = `${id} | ${name} | ${number}`
-  entriesSection.append(entry)
+  entriesArray.push(entry)
 }
 
 window.addEventListener('load', handleLoad)
 
 async function handleLoad(e) {
-  const data = await axios.get(`${BASE_URL}/persons`).then((res) => res)
+  const data = await axios.get(`${BASE_URL}/persons`).then((res) => res.data)
   console.log(data)
+  data.forEach((item) => createEntry(item.id, item.name, item.number))
+  renderEntries()
 }
 
 function renderEntries() {
-  entriesArray.forEach((item) => createEntry(item))
+  entriesArray.forEach((item) => {
+    entriesSection.append(item)
+  })
 }
 
 createEntry(5, 'ido', 543)
