@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/strauss02/fullstack-open-exercise#readme",
   "dependencies": {
+    "axios": "^0.24.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "morgan": "^1.10.0"
