@@ -58,16 +58,16 @@ document.getElementById("select-phonebook").addEventListener("change", (e) => {
   showContactDetails(e.target.value);
 });
 
-function addContact() {
-  const nameField = document.getElementById("");
-  const nameField = document.getElementById("");
+async function addContact() {
+  const nameField = document.getElementById("contectName").value;
+  const numberField = document.getElementById("phoneNumber").value;
   try {
     await axios({
       method: "POST",
       url: "http://localhost:3001/api/persons",
       data: {
-        name: signUpName,
-        number: signUpEmail,
+        name: nameField,
+        number: numberField,
       },
       headers: {
         "Content-Type": "application/json",
@@ -77,6 +77,10 @@ function addContact() {
     console.log(err.message);
   }
 }
+
+document.getElementById("addContact").addEventListener("click", (e) => {
+  addContact();
+});
 
 function removeContact() {}
 
