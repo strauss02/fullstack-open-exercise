@@ -15,8 +15,11 @@ body{
 .phone{
     border: 1px solid;
     height: 40px;
-    width: 420px;
+    width: 480px;
     background-color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 4px;
 }
 
 #phoneAderess{
@@ -37,3 +40,9 @@ body{
 .rendered-form div{
     padding: 7px;
 }
+
+.removeBtn{
+    background-color: rgb(255, 29, 29);
+    border-radius: 10px;
+}
+

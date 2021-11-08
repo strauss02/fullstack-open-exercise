@@ -17,7 +17,18 @@ async function getAll(){
     const response = await axios.get(baseUrl)
     document.getElementById("phoneAderess").innerHTML = ""
     response.data.forEach(element => {
-        document.getElementById("phoneAderess").appendChild(createElement("div",element.name, 'phone'))
+        const address = createElement("div","","phone")
+        const name = createElement("label", element.name, "name")
+        const number = createElement("label", element.number,"number")
+        const removeBtn = createElement("button","remove", "removeBtn")
+        address.appendChild(name)
+        address.appendChild(number)
+        address.appendChild(removeBtn)
+        address.id = element.id
+        document.getElementById("phoneAderess").appendChild(address)
+        document.querySelectorAll(".removeBtn").forEach(btn=>{
+            btn.addEventListener("click", removeContact)
+        })
     });
 }
 
@@ -49,6 +60,12 @@ function createElement(tagName, textContent, className) {
     return newElem;
 }
 
+async function removeContact(e){
+    let id = e.target.parentElement.id
+    await axios.delete(baseUrl+`/${id}`)
+    getAll()
+
+}
 
 
 
