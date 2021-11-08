@@ -5,7 +5,7 @@ const cors = require('cors')
 
 app.use(cors())
 app.use(express.json());
-app.use("/", express.static("Front")); // serve main path as static dir
+app.use("/", express.static("./Front")); // serve main path as static dir
 app.get("/", function (req, res) {
   // serve main path as static file
   res.sendFile(path.resolve("./Front/index.html"));
