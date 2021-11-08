@@ -1,5 +1,26 @@
 # fullstack-open-exercise
+----
+## TO-DO
 
+* ### [ ] a. Node.js and Express
+    * [X] Reading
+    * [X] Exercises 3.1.-3.6.
+    * [X] Exercises 3.7.-3.8.
+* ### [ ] b. Deploying app to internet
+    * [ ] Reading
+    * [ ] Exercises 3.9.-3.11.
+* ### [ ] c. Saving data to MongoDB
+    * [ ] Reading
+    * [ ] Exercise 3.12.
+    * [ ] Exercises 3.13.-3.14.
+    * [ ] Exercises 3.15.-3.18.
+* ### [ ] d. Validation and ESLint
+    * [ ] Reading
+    * [ ] Exercises 3.19.-3.21.
+    * [ ] Exercise 3.22.
+  
+----
+## Task Instructions
 Topics:
 1. Nodejs
 2. Express
