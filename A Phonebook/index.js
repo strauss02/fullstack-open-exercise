@@ -41,7 +41,7 @@ app.get("/info" , (request,response)=>{
 
 app.get("/api/persons/:id", (request,response)=>{
     const id = Number(request.params.id);
-    const person = persons.find(note => note.id === id);
+    const person = persons.find(person => person.id === id);
     if(person){
         response.json(person);
     } else{
@@ -53,12 +53,12 @@ app.get("/api/persons/:id", (request,response)=>{
 
 app.delete("/api/persons/:id", (request,response)=>{
     const id = Number(request.params.id);
-    persons = persons.filter(note => note.id !== id);
+    persons = persons.filter(person => person.id !== id);
     response.status(204).end();
 });
 
 
-app.post("/api/persons", (request,response,next)=>{
+app.post("/api/persons", (request,response)=>{
     const body = request.body;
     const parsonName = body.name;
     const parsonNumber = body.number;
@@ -84,7 +84,4 @@ app.post("/api/persons", (request,response,next)=>{
 
 
 
-const PORT = 3001;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-})
+app.listen(process.env.PORT || 3001, () => console.log("Server is running..."));
