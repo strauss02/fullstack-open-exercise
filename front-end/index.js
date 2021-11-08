@@ -1,5 +1,6 @@
 "use strict"
-const BASEURL = "http://localhost:3001"; 
+// const BASEURL = "http://localhost:3001"; 
+const BASEURL = "";
 const phonebookDiv = document.getElementById("phonebook-data");
 const  errorDiv = document.getElementById("error-div");
 

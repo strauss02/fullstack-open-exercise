@@ -16,6 +16,12 @@ app.use(cors({
   
 app.use(express.json()) // parses requests as json
 
+//Home Page - staticFile
+app.use("/", express.static(`./front-end`));
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "./front-end/index.html");
+});
+
 // Use morgen as middleware (3.7 + 3.8)
 morgan.token('body', (req, res) => JSON.stringify(req.body))
 app.use( morgan(':method :url :status :req[content-length] :response-time ms - :body') )
