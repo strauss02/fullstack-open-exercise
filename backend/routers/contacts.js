@@ -59,7 +59,8 @@ apiRouter.get("/persons", (req, res) => {
 apiRouter.get("/persons/:id", (req, res) => {
   let dataBase = returnDataBase();
   try {
-    res.json(dataBase[Number(req.params.id) - 1]);
+    const contact = dataBase.find(({ id }) => id === Number(req.params.id));
+    res.json(contact);
   } catch (err) {
     res.status(404).json({ message: "no such person", status: 404 });
   }
