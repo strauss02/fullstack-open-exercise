@@ -2,7 +2,13 @@
 // const BASEURL = "http://localhost:3001"; 
 const BASEURL = "";
 const phonebookDiv = document.getElementById("phonebook-data");
-const  errorDiv = document.getElementById("error-div");
+const errorDiv = document.getElementById("error-div");
+const showAddCont = document.getElementById("show-add");
+const addNewContentDiv = document.getElementById("add-content");
+const closeAddContent = document.getElementById("close-btn");
+
+showAddCont.addEventListener("click", () => addNewContentDiv.style.display = "flex");
+closeAddContent.addEventListener("click", () => addNewContentDiv.style.display = "none");
 
 /*---------- NETWORK ----------*/
 //API request phoneBook data

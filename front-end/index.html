@@ -11,16 +11,18 @@
     <title>PhoneBook</title>
 </head>
 <body onload=generatePhoneBookToDom()>
-   <h1> <i class="far fa-address-book"></i> PhoneBook </h1>
+    <h1> <i class="far fa-address-book"></i> PhoneBook </h1>
+    <div id="error-div"></div>
+    <button id="show-add"><i class="fas fa-user-plus"></i> Add new contact</button>
+    <div id="add-content" class="add-content">
+        <h2>Add new contact</h2>
+        <div id="inputs-div">
+            <input id ="name-input" class="add-input" placeholder="Name">
+            <input id ="number-input" class="add-input" placeholder="Phone number">
+         </div>
+         <button id="add-btn"> <i class="fas fa-user-plus"></i> </button>
+         <button id="close-btn"> <i class="far fa-window-close"></i> </button>
+    </div> 
    <div id="phonebook-data"></div>
-   <div id="add-content">
-       <h2>Add new content</h2>
-       <div id="inputs-div">
-           <input id ="name-input" class="add-input" placeholder="Name">
-           <input id ="number-input" class="add-input" placeholder="Phone number">
-        </div>
-        <button id="add-btn"> <i class="fas fa-user-plus"></i> </button>
-   </div> 
-   <div id="error-div"></div>
 </body>
 </html>
