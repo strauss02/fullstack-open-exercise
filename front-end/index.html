@@ -4,14 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
     <script src="index.js" defer></script>
     <title>PhoneBook</title>
 </head>
 <body onload=generatePhoneBookToDom()>
-   <h1> PhoneBook </h1> 
+   <h1> <i class="far fa-address-book"></i> PhoneBook </h1>
    <div id="phonebook-data"></div>
+   <div id="add-content">
+       <h2>Add new content</h2>
+       <div id="inputs-div">
+           <input id ="name-input" class="add-input" placeholder="Name">
+           <input id ="number-input" class="add-input" placeholder="Phone number">
+        </div>
+        <button id="add-btn"> <i class="fas fa-user-plus"></i> </button>
+   </div> 
    <div id="error-div"></div>
 </body>
 </html>
