@@ -6,6 +6,8 @@ const errorDiv = document.getElementById("error-div");
 const showAddCont = document.getElementById("show-add");
 const addNewContentDiv = document.getElementById("add-content");
 const closeAddContent = document.getElementById("close-btn");
+const serchBar = document.getElementById("seaech-contact");
+
 
 showAddCont.addEventListener("click", () => addNewContentDiv.style.display = "flex");
 closeAddContent.addEventListener("click", () => addNewContentDiv.style.display = "none");
@@ -52,7 +54,7 @@ async function generatePhoneBookToDom() {
              // Adding remove content API request function as listener + update phoeBook
             removeButton.addEventListener("click", removeContentFromDom);
             const callButton = createElement("button", "Call" , "call-btn");
-            callButton.addEventListener("click", ()=> alert("calling"))
+            callButton.addEventListener("click", ()=> alert("calling..."))
 
             //Append elements
             phoneMemberDiv.appendChild(idElem);
@@ -83,6 +85,25 @@ function removeContentFromDom(event) {
     } catch (error) {
         errorMessege(error.response.data.error, errorDiv);
     }
+}
+// Serch contact on every key press
+serchBar.addEventListener("keyup", (event) => {
+  const searchStr = serchBar.value.toLowerCase();
+  const allContactsNamesElem = document.querySelectorAll('.name');
+  for (let i = 0; i < allContactsNamesElem.length; i++) {
+    const contactName = allContactsNamesElem[i];
+    filterContactsByStr(contactName, searchStr);
+  }
+})
+
+// Gets a nameElem and a string. If it contains the string it will display the contact otherwise it will disappear.
+function filterContactsByStr(nameElem, searchStr) {
+  const nameContent = nameElem.textContent.toLowerCase()
+  if (nameContent.includes(searchStr)) {
+    nameElem.parentElement.style.display = ''
+  } else {
+    nameElem.parentElement.style.display = 'none'
+  }
 }
 /*---------- ERROR HANDLER ----------*/
 //Display Error massege
