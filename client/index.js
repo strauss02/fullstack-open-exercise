@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const BASE_URL = 'http://localhost:3001/api'
 
 const entriesSection = document.querySelector('.entries-container')

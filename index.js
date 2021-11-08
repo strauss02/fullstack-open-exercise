@@ -6,6 +6,7 @@ const data = require('./data.json')
 const fs = require('fs')
 const morgan = require('morgan')
 const cors = require('cors')
+const { get } = require('http')
 
 /* ================ Middleware ============= */
 
@@ -24,6 +25,8 @@ const generateId = () => {
 }
 
 /* ================ Routing ============= */
+
+app.use(express.static('./client'))
 
 app.get('/api/persons', (req, res) => {
   res.send(data)
