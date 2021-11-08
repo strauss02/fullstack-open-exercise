@@ -6,9 +6,9 @@
     * [X] Reading
     * [X] Exercises 3.1.-3.6.
     * [X] Exercises 3.7.-3.8.
-* ### [ ] b. Deploying app to internet
+* ### [X] b. Deploying app to internet
     * [X] Reading
-    * [ ] Exercises 3.9.-3.11. - my Full-stack deployment to Heroku :
+    * [X] Exercises 3.9.-3.11. - my Full-stack deployment to Heroku : https://phonebook-rama.herokuapp.com/
 * ### [ ] c. Saving data to MongoDB
     * [ ] Reading
     * [ ] Exercise 3.12.
