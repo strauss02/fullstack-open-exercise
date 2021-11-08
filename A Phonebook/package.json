@@ -8,6 +8,11 @@
     "dev": "nodemon ./app.js"
   },
   "author": "Amit Fikler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/strauss02/fullstack-open-exercise.git"
+  },
+  "keywords": [],
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
