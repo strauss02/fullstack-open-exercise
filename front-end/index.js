@@ -51,11 +51,14 @@ async function generatePhoneBookToDom() {
             const removeButton = createElement("button", "Delete" , "delte-btn");
              // Adding remove content API request function as listener + update phoeBook
             removeButton.addEventListener("click", removeContentFromDom);
+            const callButton = createElement("button", "Call" , "call-btn");
+            callButton.addEventListener("click", ()=> alert("calling"))
 
             //Append elements
             phoneMemberDiv.appendChild(idElem);
             phoneMemberDiv.appendChild(nameElem);
             phoneMemberDiv.appendChild(numberElem);
+            phoneMemberDiv.appendChild(callButton);
             phoneMemberDiv.appendChild(removeButton);
             phonebookDiv.appendChild(phoneMemberDiv);
         }
