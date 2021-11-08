@@ -1,6 +1,7 @@
 const baseUrl = '/api/persons'
 const phoneInput = document.getElementById("phoneInput")
 const nameInput = document.getElementById("nameInput")
+const notyf = new Notyf();
 
 
 document.getElementById("addContact").addEventListener("click",()=>{
@@ -34,7 +35,7 @@ async function getAll(){
 
 async function addAddress(){
     if(!phoneInput.value || !nameInput){
-        alartError('name or number is missing')
+        notyf.error('name or number is missing')
         return
     }
     try{
@@ -42,11 +43,12 @@ async function addAddress(){
             name: nameInput.value,
             number: phoneInput.value
         })
+        notyf.success(`${phoneInput.value} added to address book`)
         nameInput.value =""
         phoneInput.value =""
         getAll()
     } catch{
-        alartError(`${phoneInput.value} is already on the address list`)
+        notyf.error(`${phoneInput.value} is already on the address list`)
     }
 }
 
@@ -71,17 +73,3 @@ async function removeContact(e){
 
 
 window.addEventListener('load', getAll)
-
-function alartError(str){
-    let alart =
-    `
-    <div class="alert alert-danger" role="alert" id="danger">
-    ${str}
-    </div>`
-    let div = document.createElement("div")
-    div.innerHTML = alart
-    document.body.insertBefore(div, document.querySelector("h1"))
-    setTimeout(()=>{
-        document.getElementById("danger").remove()
-    },2000);
-}

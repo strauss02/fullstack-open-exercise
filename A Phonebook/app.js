@@ -6,10 +6,10 @@ const path = require('path')
 
 app.use(cors())
 app.use(express.json());
-app.use("/", express.static("./Front")); // serve main path as static dir
-app.get("/", function (req, res) {
-  // serve main path as static file
-  res.sendFile(path.resolve("./Front/index.html"));
+
+app.use("/", express.static(`./Front`));
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/Front/index.html");
 });
 
 
