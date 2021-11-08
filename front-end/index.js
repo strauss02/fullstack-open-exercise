@@ -1,4 +1,6 @@
 "use strict"
+/*---------- VARIIABLES DECLARATION ----------*/
+
 // const BASEURL = "http://localhost:3001"; 
 const BASEURL = "";
 const phonebookDiv = document.getElementById("phonebook-data");
@@ -7,12 +9,27 @@ const showAddCont = document.getElementById("show-add");
 const addNewContentDiv = document.getElementById("add-content");
 const closeAddContent = document.getElementById("close-btn");
 const serchBar = document.getElementById("seaech-contact");
+const infoDiv = document.getElementById("info-div");
 
+/*---------- EVENT LISTENERS ----------*/
+window.addEventListener("load", generatePhoneBookToDom);
+window.addEventListener("load", generateInfoToDom);
 
 showAddCont.addEventListener("click", () => addNewContentDiv.style.display = "flex");
 closeAddContent.addEventListener("click", () => addNewContentDiv.style.display = "none");
 
 /*---------- NETWORK ----------*/
+//API request for general info
+async function getInfo() {
+  try {
+    const response = await axios.get(`${BASEURL}/info`);
+
+    return response.data;
+
+  } catch (error) {
+    errorMessege(error.response.data.error, errorDiv);
+  }
+}
 //API request phoneBook data
 async function getPhoneBook() {
     try {
@@ -82,6 +99,7 @@ function removeContentFromDom(event) {
         const phoneMemberIdNum = event.target.parentElement.firstElementChild.textContent; 
         deletefromPhoneBook(phoneMemberIdNum); // Delete from DB
         generatePhoneBookToDom(); //Update the DOM according to changes
+        generateInfoToDom(); //Update info on DOM
     } catch (error) {
         errorMessege(error.response.data.error, errorDiv);
     }
@@ -123,3 +141,17 @@ function createElement(tagName, textContent, className) {
     newElem.classList.add(className);
     return newElem;
   }
+
+//
+async function generateInfoToDom() {
+  clearInfo();
+  const infoObj = await getInfo(); //Get obj from Api request
+  const peopleNum = createElement("h3", infoObj.peopleNum, "info");
+  const date = createElement("h3", infoObj.date, "info");
+  infoDiv.appendChild(peopleNum);
+  infoDiv.appendChild(date);
+}
+
+function clearInfo() {
+  document.querySelectorAll(".info").forEach((elem) => elem.remove());
+}
