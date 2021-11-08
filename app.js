@@ -4,7 +4,7 @@ const express = require('express')
 const app = express()
 const data = require('./data.json')
 const fs = require('fs')
-const morgan = require('morgan')
+// const morgan = require('morgan')
 const cors = require('cors')
 
 const errorHandler = require('./errorHandler.js')
