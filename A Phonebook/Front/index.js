@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3001/api/persons'
+const baseUrl = '/api/persons'
 const phoneInput = document.getElementById("phoneInput")
 const nameInput = document.getElementById("nameInput")
 
