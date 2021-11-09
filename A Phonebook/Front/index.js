@@ -43,7 +43,7 @@ async function addAddress(){
             name: nameInput.value,
             number: phoneInput.value
         })
-        notyf.success(`${phoneInput.value} added to address book`)
+        notyf.success(`${nameInput.value} added to address book`)
         nameInput.value =""
         phoneInput.value =""
         getAll()
