@@ -1,3 +1,5 @@
+const { default: axios } = require("axios");
+
 const baseUrl = '/api/persons'
 const phoneInput = document.getElementById("phoneInput")
 const nameInput = document.getElementById("nameInput")
@@ -34,21 +36,29 @@ async function getAll(){
 }
 
 async function addAddress(){
-    if(!phoneInput.value || !nameInput){
+    if(!phoneInput.value || !nameInput.value){
         notyf.error('name or number is missing')
         return
     }
     try{
-        const response = await axios.post(baseUrl,{
-            name: nameInput.value,
-            number: phoneInput.value
-        })
-        notyf.success(`${nameInput.value} added to address book`)
+        const response = await axios.get(`${baseUrl}/name/${nameInput.value}`)
+        if (!response.data){
+            await axios.post(baseUrl,{
+                name: nameInput.value,
+                number: phoneInput.value
+            })
+            notyf.success(`${nameInput.value} added to address book`)
+        }else{
+            axios.put(`${baseUrl}/updateNumber`,{
+                id:response.data,
+                number: phoneInput
+            })
+        }
         nameInput.value =""
         phoneInput.value =""
         getAll()
-    } catch{
-        notyf.error(`${nameInput.value} is already on the address list`)
+    } catch(err){
+        notyf.error(err.response.data.error)
     }
 }
 
