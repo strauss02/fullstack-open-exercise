@@ -11,48 +11,6 @@ const {
 const mongoose = require("mongoose");
 const { Contact } = require("./mongodb");
 
-/*
-    get database
-*/
-function returnDataBase() {
-  let dataBase = fs.readFileSync(
-    path.resolve(__dirname, "../../database.json")
-  );
-  let dataBaseJson = JSON.parse(dataBase.toString());
-  return dataBaseJson;
-}
-
-/*
-        save database
-    */
-function saveDataBase(dataBaseJson) {
-  fs.writeFileSync("database.json", Buffer.from(JSON.stringify(dataBaseJson)));
-}
-
-/*
-  create new id
-*/
-function returnID() {
-  let database = returnDataBase();
-  let currentId = Math.floor(Math.random() * 200);
-  if (database.find(({ id }) => id === currentId)) {
-    returnID();
-  } else {
-    return currentId;
-  }
-}
-
-/*
-  create new contact
-*/
-class Person {
-  constructor(name, phoneNumber) {
-    this.id = returnID();
-    this.name = name;
-    this.number = phoneNumber;
-  }
-}
-
 apiRouter.get("/persons", (req, res) => {
   Contact.find()
     .then((dataBase) => {
