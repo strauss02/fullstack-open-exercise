@@ -16,6 +16,24 @@ exports.getAllContacts = async (req, res, next) => {
     }
 }
 
+//Get All names
+exports.isNameThere = async (req, res, next) => {
+    try {
+        const { name } = req.params;
+        await Contact.find({name})
+        .then((nameData) => {
+            if (nameData.length > 0) res.status(200).send(true);
+            else res.send(false);
+        })
+        .catch((error) => {
+            next({"status": error.status, "messege": error.messege})
+        });
+
+    } catch (error) {
+        next({"status": error.status, "messege": error.messege});
+    }
+}
+
 //Get contact by id
 exports.getContactById = async (req, res, next) => {
     try {
