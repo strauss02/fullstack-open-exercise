@@ -2,21 +2,17 @@ const express = require('express');
 const router = express.Router();
 const path = require("path");
 const fs = require("fs");
-const {generateId, validateName} = require("../helpers/validate")
+const {generateId, validateName} = require("../helpers/validate");
+const {getAllContacts} = require("../controller/contact");
+
+
 const dataFilePath = path.resolve(__dirname, "../phoneBook.json");
 
 // /api
 
 
-//Get request for phoneBook data (3.1)
-router.get('/persons', (req, res) => {
-    try {
-        const phoneBookData = JSON.parse(fs.readFileSync(dataFilePath));
-        res.json(phoneBookData);
-    } catch (error) {
-        throw {"status": error.status, "messege": error.messege};
-    }
-})
+//Get request for phoneBook data (3.1) + using extenal function that takes information from MongoDB(3.13) 
+router.get('/persons', getAllContacts);
 
 //Get request for phoneBook person data (3.3)
 router.get('/persons/:id', (req, res) => {
