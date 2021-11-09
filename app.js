@@ -1,5 +1,6 @@
 /* ============== Import Tools =============== */
 
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const data = require('./data.json')
@@ -21,10 +22,10 @@ app.use(express.json())
 // )
 /* ================ Utility Functions ============= */
 
-const generateId = () => {
-  const maxId = data.length > 0 ? Math.max(...data.map((n) => n.id)) : 0
-  return maxId + 1
-}
+// const generateId = () => {
+//   const maxId = data.length > 0 ? Math.max(...data.map((n) => n.id)) : 0
+//   return maxId + 1
+// }
 
 /* ================ Routing ============= */
 
@@ -74,38 +75,45 @@ app.get('/api/info', (req, res) => {
  * Get a person according to his ID.
  */
 app.get('/api/persons/:id', (req, res) => {
-  const id = Number(req.params.id)
-  const person = data.find((person) => person.id === id)
-  if (person) {
-    res.json(person)
-  } else {
-    res.status(404).end()
-  }
+  const id = req.params.id
+
+  Contact.findById(id).then((contact) => res.json(contact))
+  // .catch((err) => res.status(404).end())
 })
 
 /**
  * Allows user to create a new phonebook entry.
  */
-app.post('/api/persons', (req, res) => {
+app.post('/api/persons', async (req, res) => {
   const body = req.body
-
+  const contacts = await Contact.find({}).then((res) => res)
   // Assert content not empty
   if (!body.name || !body.number) {
     return res.status(400).json({ error: 'content missing' })
-  } else if (data.some((person) => person.name === body.name)) {
+  } else if (contacts.some((contact) => contact.name === body.name)) {
     return res.status(400).json({
+      thisis: 'sparta',
       error: 'name must be unique',
     })
   }
-  const person = {
+  const contact = await new Contact({
     name: body.name,
     number: body.number,
-    id: generateId(),
-    date: new Date(),
-  }
-  const newData = data.concat(person)
-  fs.writeFileSync('./data.json', JSON.stringify(newData))
-  res.json(person)
+  })
+  console.log('contact is:', contact)
+
+  contact
+    .save()
+    .then((savedNote) => {
+      console.log('save success zone')
+      res.send('saved!')
+    })
+    .catch((err) => {
+      console.log(
+        `There was an error trying to save data. Error: ${err.message}`
+      )
+      res.end('There was an error while trying to save!')
+    })
 })
 
 /**
@@ -122,6 +130,8 @@ app.delete('/api/persons/:id', (req, res) => {
 app.use(errorHandler)
 
 /* ================ Listening Port ============= */
+// const PORT = process.env.PORT || 3001
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
+
 app.listen(PORT, () => console.log('server running on ', PORT))
