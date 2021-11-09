@@ -25,9 +25,24 @@ window.addEventListener("load", generateInfoToDom);
 showAddCont.addEventListener("click", () => addNewContentDiv.style.display = "flex");
 closeAddContent.addEventListener("click", () => addNewContentDiv.style.display = "none");
 
-addNewContactBtn.addEventListener("click", addNewContact);
+addNewContactBtn.addEventListener("click", addContactHandler);
 
 /*---------- NETWORK ----------*/
+//Check if name is already exsist in the DB - if so will sent post request and update the number, else will add him
+async function addContactHandler() {
+  try {
+    const response = await axios.get(`${BASEURL}/api/persons/names/${nameInput.value}`);
+    if (response.data) { 
+      updateContact(); //Name already on phoneBook, update number
+    } else {
+      addNewContact(); //Add new contact
+    }
+
+  } catch (error) {
+    errorMessege(error.response.data.error, errorDiv);
+  }
+}
+
 //API requset for update contact number 
 async function updateContact() {
   try {
