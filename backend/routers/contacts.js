@@ -82,24 +82,57 @@ apiRouter.post(
   middlewareMissingNameOrNumber,
   middlewareNameAlreadyExist,
   (req, res) => {
-    let dataBase = returnDataBase();
-    dataBase.push(new Person(req.body.name, req.body.number));
-    saveDataBase(dataBase);
-    res.status(200).json({
-      message: "Success! Contact was added successfully",
+    const contact = new Contact({
+      name: req.body.name,
+      number: req.body.number,
     });
+    contact
+      .save()
+      .then((result) => {
+        res.status(200).json({
+          message: "Success! Contact was added successfully",
+        });
+      })
+      .catch((err) => {
+        res.status(401).json({
+          message: "Failed! Contact was Not added",
+        });
+      });
   }
 );
 
+// const blog = new Blog({
+//   _id: 9,
+//   title: "hello",
+//   post: "hello",
+// });
+
 apiRouter.delete("/persons/:id/remove", middlewareNameNotExist, (req, res) => {
-  let dataBase = returnDataBase();
-  let newdataBase = dataBase.filter(
-    (contact) => contact.id !== Number(req.params.id)
-  );
-  saveDataBase(newdataBase);
-  res.status(200).json({
-    message: "Success! Contact was deleted successfully",
-  });
+  Contact.findByIdAndRemove(req.params.id)
+    .then((reuslt) => {
+      res.status(200).json({
+        message: "Success! Contact was deleted successfully",
+      });
+    })
+    .catch((err) => {
+      res.status(401).json({
+        message: "Failed! Contact not deleted successfully",
+      });
+    });
+});
+
+apiRouter.put("/persons/update", middlewareMissingNameOrNumber, (req, res) => {
+  Contact.findOneAndUpdate({ name: req.body.name }, { number: req.body.number })
+    .then((reuslt) => {
+      res.status(200).json({
+        message: "Success! Contact was updated successfully",
+      });
+    })
+    .catch((err) => {
+      res.status(401).json({
+        message: "Failed! Contact not updated successfully",
+      });
+    });
 });
 
 module.exports = apiRouter;

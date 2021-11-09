@@ -80,9 +80,7 @@ async function addContact() {
 
 async function removeContact() {
   try {
-    const numberField = Number(
-      document.getElementById("contact-id").textContent
-    );
+    const numberField = document.getElementById("contact-id").textContent;
     const removeContact = await axios({
       method: "DELETE",
       url: `/api/persons/${numberField}/remove`,
@@ -111,10 +109,63 @@ document.getElementById("addContact").addEventListener("click", async (e) => {
   e.preventDefault();
   e.stopImmediatePropagation();
   document.getElementById("select-phonebook").innerHTML = "";
-  await addContact();
+  if (await getContactExist(document.getElementById("contectName").value)) {
+    updateContact();
+  } else {
+    await addContact();
+  }
   ganeratePhoneBook();
 });
 
 window.addEventListener("load", (e) => {
   ganeratePhoneBook();
 });
+
+async function getContactExist(name) {
+  try {
+    const phonebookJson = await axios({
+      method: "GET",
+      url: "/api/persons",
+      data: {},
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (checkIfContactExist(name, phonebookJson.data)) {
+      return true;
+    }
+    return false;
+  } catch (err) {
+    console.log(err.message);
+  }
+}
+
+function checkIfContactExist(name, phonebook) {
+  for (let contact of phonebook) {
+    if (contact.name === name) {
+      return true;
+    }
+  }
+  return false;
+}
+
+async function updateContact() {
+  const nameField = document.getElementById("contectName").value;
+  const numberField = document.getElementById("phoneNumber").value;
+  try {
+    const addContact = await axios({
+      method: "PUT",
+      url: "/api/persons/update",
+      data: {
+        name: nameField,
+        number: numberField,
+      },
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    alert(addContact.data.message);
+  } catch (err) {
+    alert(err.response.data.message);
+  }
+}

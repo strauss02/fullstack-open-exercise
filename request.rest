@@ -4,10 +4,10 @@
 # {
 # }
 
-POST http://localhost:3001/api/persons
+PUT http://localhost:3001/api/persons/update
 Content-Type: application/json
 
 {
     "name":"oryan",
-    "number": 14
+    "number": "388338"
 }

@@ -2,6 +2,8 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
+const mongoose = require("mongoose");
+const { Contact } = require("../routers/mongodb");
 
 /*
     get database
@@ -46,11 +48,11 @@ function middlewarePageNotFound(req, res, next) {
     The name or number is missing
 */
 function middlewareMissingNameOrNumber(req, res, next) {
-  if (req.body.name && req.body.number) {
+  if (req.body.name && req.body.number && req.body.number.length >= 10) {
     next();
   } else {
     res.status(401).json({
-      message: "must include name and number",
+      message: "must include name and valid number (10 digits)",
       status: 401,
     });
   }
@@ -60,31 +62,31 @@ function middlewareMissingNameOrNumber(req, res, next) {
    The name already exists in the phonebook
 */
 function middlewareNameAlreadyExist(req, res, next) {
-  let dataBase = returnDataBase();
-  if (
-    !dataBase[
-      dataBase.indexOf(dataBase.find(({ name }) => name === req.body.name))
-    ]
-  ) {
-    next();
-  } else {
-    res.status(404).json({
-      message: "contact already exist",
-      status: 404,
+  Contact.find()
+    .then((allcontacts) => {
+      for (let contact of allcontacts) {
+        if (contact.name === req.body.name) {
+          res.status(404).json({
+            message: "contact already exist",
+            status: 404,
+          });
+        }
+      }
+    })
+    .catch((err) => {
+      res.status(404).json({
+        message: "Please try again later",
+        status: 404,
+      });
     });
-  }
+  next();
 }
 
 /*
    The name not exists in the phonebook for -Delete
 */
 function middlewareNameNotExist(req, res, next) {
-  let dataBase = returnDataBase();
-  if (
-    dataBase[
-      dataBase.indexOf(dataBase.find(({ id }) => id === Number(req.params.id)))
-    ]
-  ) {
+  if (Contact.find({ _id: req.params.id })) {
     next();
   } else {
     res.status(404).json({
