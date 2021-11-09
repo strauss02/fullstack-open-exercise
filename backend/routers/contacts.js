@@ -101,12 +101,6 @@ apiRouter.post(
   }
 );
 
-// const blog = new Blog({
-//   _id: 9,
-//   title: "hello",
-//   post: "hello",
-// });
-
 apiRouter.delete("/persons/:id/remove", middlewareNameNotExist, (req, res) => {
   Contact.findByIdAndRemove(req.params.id)
     .then((reuslt) => {

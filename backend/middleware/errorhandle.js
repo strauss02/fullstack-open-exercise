@@ -5,16 +5,16 @@ const path = require("path");
 const mongoose = require("mongoose");
 const { Contact } = require("../routers/mongodb");
 
-/*
-    get database
-*/
-function returnDataBase() {
-  let dataBase = fs.readFileSync(
-    path.resolve(__dirname, "../../database.json")
-  );
-  let dataBaseJson = JSON.parse(dataBase.toString());
-  return dataBaseJson;
-}
+// /*
+//     get database
+// */
+// function returnDataBase() {
+//   let dataBase = fs.readFileSync(
+//     path.resolve(__dirname, "../../database.json")
+//   );
+//   let dataBaseJson = JSON.parse(dataBase.toString());
+//   return dataBaseJson;
+// }
 
 /*
     error 500

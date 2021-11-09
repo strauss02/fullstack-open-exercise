@@ -9,21 +9,21 @@ const { Contact } = require("./mongodb");
 
 /*
     get database
-*/
-function returnDataBase() {
-  let dataBase = fs.readFileSync(
-    path.resolve(__dirname, "../../database.json")
-  );
-  let dataBaseJson = JSON.parse(dataBase.toString());
-  return dataBaseJson;
-}
+// */
+// function returnDataBase() {
+//   let dataBase = fs.readFileSync(
+//     path.resolve(__dirname, "../../database.json")
+//   );
+//   let dataBaseJson = JSON.parse(dataBase.toString());
+//   return dataBaseJson;
+// }
 
-/*
-        save database
-*/
-function saveDataBase(dataBaseJson) {
-  fs.writeFileSync("database.json", Buffer.from(JSON.stringify(dataBaseJson)));
-}
+// /*
+//         save database
+// */
+// function saveDataBase(dataBaseJson) {
+//   fs.writeFileSync("database.json", Buffer.from(JSON.stringify(dataBaseJson)));
+// }
 
 /*
         get all contacts info
