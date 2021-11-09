@@ -2,9 +2,24 @@ require('dotenv').config()
 const express = require("express");
 const app  = express();
 const cors = require('cors')
-const Contact = require('./models/person')
 app.use(cors())
 app.use(express.json());
+
+
+const contactRouter = require('./routers/contact')
+const eroorHandler = require('./middleware/errorHandler')
+const mongoose = require("mongoose");
+const errorHandler = require('./middleware/errorHandler');
+const url = process.env.MONGODB_URI
+console.log('connecting to' + url);
+
+mongoose.connect(url)
+.then(()=>{
+    console.log("connected")
+})
+.catch((err)=>{
+    console.log('error connecting to MongoDB:', err.message);
+})
 
 
 app.use("/", express.static(`./A Phonebook/Front`));
@@ -12,13 +27,7 @@ app.get("/", (req, res) => {
   res.sendFile("./A Phonebook/Front/index.html");
 });
 
-
-
-app.get("/api/persons", (request,response)=>{
-    Contact.find({}).then(persons=>{
-        response.json(persons)
-    });
-});
+app.use("/api/persons", contactRouter)
 
 app.get("/info" , (request,response)=>{
     response.send(
@@ -27,49 +36,6 @@ app.get("/info" , (request,response)=>{
     );
 });
 
-app.get("/api/persons/:id", (request,response)=>{
-    const id = Number(request.params.id);
-    const person = persons.find(person => person.id === id);
-    if(person){
-        response.json(person);
-    } else{
-        response.status(404).end();
-    }
-});
-
-
-
-app.delete("/api/persons/:id", (request,response)=>{
-    const id = Number(request.params.id);
-    persons = persons.filter(person => person.id !== id);
-    response.status(204).end();
-});
-
-
-app.post("/api/persons", (request,response)=>{
-    const body = request.body;
-    const parsonName = body.name;
-    const parsonNumber = body.number;
-    const name = persons.find(person => person.name === parsonName);
-    if(!parsonName || !parsonNumber){
-        response.status(404).json({
-            error: 'name or number is missing'
-        });
-    } else if (name){
-        response.status(404).json({
-            error: 'name must be unique'
-        });
-    } else {
-        const person = {
-            id: Math.floor(Math.random() * 555),
-            name: body.name,
-            number: body.number,
-        };
-        persons.unshift(person);
-        response.json(person);
-    }
-})
-
-
+app.use(errorHandler)
 
 app.listen(process.env.PORT || 3001, () => console.log("Server is running..."));
