@@ -60,4 +60,18 @@ exports.addContact = async (req, res) => {
     }
 }
 
+//Delete contact from phoneBook by id
+exports.deleteContact = async (req, res) => {
+    try {
+        const {id} = req.params;
+        Contact.deleteOne({_id : id})
+        .then(() => res.status(204).send(`Person ${id} is not on the list anymore!`))
+        .catch( (error) => { res.status(400).send(error) } );
+        
+    } catch (error) {
+        throw {"status": error.status, "messege": error.messege};
+    }
+} 
+
+
 
