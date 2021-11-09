@@ -48,7 +48,7 @@ async function addAddress(){
         phoneInput.value =""
         getAll()
     } catch{
-        notyf.error(`${phoneInput.value} is already on the address list`)
+        notyf.error(`${nameInput.value} is already on the address list`)
     }
 }
 

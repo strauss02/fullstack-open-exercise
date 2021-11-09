@@ -1,26 +1,31 @@
 {
-  "name": "a-phonebook",
+  "name": "fullstack-open-exercise",
   "version": "1.0.0",
+  "description": "Topics:\r 1. Nodejs\r 2. Express\r 3. Deployment\r 4. MongoDB",
   "main": "app.js",
   "scripts": {
-    "build": "node ./app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Amit Fikler",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/strauss02/fullstack-open-exercise.git"
   },
   "keywords": [],
+  "author": "ahmed <strauss02@hotmail.co.il>",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/strauss02/fullstack-open-exercise/issues"
+  },
+  "homepage": "https://github.com/strauss02/fullstack-open-exercise#readme",
   "dependencies": {
+    "axios": "^0.24.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "notyf": "^3.10.0"
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.14"
-  },
-  "description": ""
+  }
 }
