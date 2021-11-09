@@ -8,6 +8,8 @@ const {
   middlewareNameAlreadyExist,
   middlewareNameNotExist,
 } = require("../middleware/errorhandle");
+const mongoose = require("mongoose");
+const { Contact } = require("./mongodb");
 
 /*
     get database
@@ -52,8 +54,16 @@ class Person {
 }
 
 apiRouter.get("/persons", (req, res) => {
-  let dataBase = returnDataBase();
-  res.json(dataBase);
+  //let dataBase = returnDataBase();
+  Contact.find()
+    .then((dataBase) => {
+      res.json(dataBase);
+    })
+    .catch((err) => {
+      res
+        .status(404)
+        .json({ message: "had problems loading contacts", status: 404 });
+    });
 });
 
 apiRouter.get("/persons/:id", (req, res) => {

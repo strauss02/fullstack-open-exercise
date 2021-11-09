@@ -97,16 +97,22 @@ async function removeContact() {
   }
 }
 
-document.getElementById("removeContact").addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopImmediatePropagation();
-  removeContact();
-});
+document
+  .getElementById("removeContact")
+  .addEventListener("click", async (e) => {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    document.getElementById("select-phonebook").innerHTML = "";
+    await removeContact();
+    ganeratePhoneBook();
+  });
 
-document.getElementById("addContact").addEventListener("click", (e) => {
+document.getElementById("addContact").addEventListener("click", async (e) => {
   e.preventDefault();
   e.stopImmediatePropagation();
-  addContact();
+  document.getElementById("select-phonebook").innerHTML = "";
+  await addContact();
+  ganeratePhoneBook();
 });
 
 window.addEventListener("load", (e) => {
