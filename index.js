@@ -3,8 +3,8 @@ const express = require('express')
 const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT || 3001;
-const infoRouter = require("./routers/info");
-const apiRouter = require("./routers/api");
+const infoRouter = require("./back-end/routers/info");
+const apiRouter = require("./back-end/routers/api");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
@@ -18,7 +18,7 @@ mongoose
 
 //MiddleWares
 // const morgan = require('morgan');
-const {errorHandlerMiddleware} = require("./middlewares/errorHandler");
+const {errorHandlerMiddleware} = require("./back-end/middlewares/errorHandler");
 
 
 app.use(cors({
