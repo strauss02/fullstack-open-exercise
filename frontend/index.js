@@ -6,7 +6,6 @@ function displayContacts(allContacts) {
     const optionElement = document.createElement("option");
     optionElement.setAttribute("value", contact.id);
     optionElement.textContent = contact.name;
-
     phonebookParent.append(optionElement);
   }
 }
@@ -99,11 +98,13 @@ async function removeContact() {
 }
 
 document.getElementById("removeContact").addEventListener("click", (e) => {
+  e.preventDefault();
   e.stopImmediatePropagation();
   removeContact();
 });
 
 document.getElementById("addContact").addEventListener("click", (e) => {
+  e.preventDefault();
   e.stopImmediatePropagation();
   addContact();
 });
