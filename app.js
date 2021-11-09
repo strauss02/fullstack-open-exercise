@@ -22,41 +22,12 @@ app.use(express.json())
 // )
 /* ================ Utility Functions ============= */
 
-// const generateId = () => {
-//   const maxId = data.length > 0 ? Math.max(...data.map((n) => n.id)) : 0
-//   return maxId + 1
-// }
-
 /* ================ Routing ============= */
 
 app.use(express.static('./client'))
 
 /* ================ Test Zone ============= */
-/*
-const mongoose = require('mongoose')
-const password = 'dozen12' // process.argv[2]
-const databaseName = 'phonebookDB'
 
-const url = `mongodb+srv://ido:${password}@cluster0.8yoes.mongodb.net/${databaseName}?retryWrites=true&w=majority`
-
-mongoose.connect(url)
-
-const contactSchema = new mongoose.Schema({
-  name: String,
-  date: Date,
-  number: Number,
-})
-
-contactSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString()
-    delete returnedObject._id
-    delete returnedObject.__v
-  },
-})
-
-const Contact = mongoose.model('Contact', contactSchema)
-*/
 /* ================ End Test Zone ============= */
 
 app.get('/api/persons', (req, res) => {
@@ -65,20 +36,26 @@ app.get('/api/persons', (req, res) => {
   })
 })
 
-app.get('/api/info', (req, res) => {
-  res.send(
-    `Phonebook has info for ${data.length} people. <br><br> ${new Date()}`
-  )
+app.get('/api/info', async (req, res) => {
+  const num = await Contact.countDocuments()
+  res.send(`Phonebook has info for ${num} people. <br><br> ${new Date()}`)
 })
 
 /**
  * Get a person according to his ID.
  */
-app.get('/api/persons/:id', (req, res) => {
+app.get('/api/persons/:id', (req, res, next) => {
   const id = req.params.id
 
-  Contact.findById(id).then((contact) => res.json(contact))
-  // .catch((err) => res.status(404).end())
+  Contact.findById(id)
+    .then((contact) => {
+      if (contact) {
+        res.json(contact)
+      } else {
+        res.status(404).end()
+      }
+    })
+    .catch((err) => next(err))
 })
 
 /**
@@ -119,12 +96,14 @@ app.post('/api/persons', async (req, res) => {
 /**
  * Allows user to delete an existing phonebook entry.
  */
-app.delete('/api/persons/:id', (req, res) => {
-  const id = Number(req.params.id)
-  const newData = data.filter((person) => person.id !== id)
-  fs.writeFileSync('./data.json', JSON.stringify(newData))
+app.delete('/api/persons/:id', (req, res, next) => {
+  const id = req.params.id
 
-  res.status(204).end()
+  Contact.findByIdAndRemove(id)
+    .then((result) => {
+      res.status(204).end()
+    })
+    .catch((err) => next(err))
 })
 
 app.use(errorHandler)
