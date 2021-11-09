@@ -50,9 +50,7 @@ exports.addContact = async (req, res) => {
         if (!name || !phoneNumber) {
             res.status(400).send({"messege": "Must enter name and number"}) 
         }
-        console.log("here");
         const contact = new Contact ({ name , number: phoneNumber});
-        console.log("no here");
         contact.save()
         .then( (savedContact) => res.status(200).send(true) )
         .catch( (error) => { res.status(400).send(error) });

@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const path = require("path");
 const fs = require("fs");
-const {generateId, validateName} = require("../helpers/validate");
 const { getAllContacts, getContactById, addContact } = require("../controller/contact");
 
 
@@ -31,7 +30,7 @@ router.delete("/persons/:id", (req, res) => {
     }
 })
 
-//Add a new person phone data gets in body {"phoneNumber": .... , "name": ....} (3.5 + 3.6) + Add new cintact to mongoDB (3.14)
+//Add a new person phone data gets in body {"phoneNumber": .... , "name": ....} (3.5 + 3.6) + Add new contact to mongoDB (3.14)
 router.post("/persons",addContact);
 
 
