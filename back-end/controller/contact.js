@@ -31,7 +31,7 @@ exports.getContactById = async (req, res, next) => {
 }
 
 //Get info about phoneBook
-exports.getInfo = async (req, res) => {
+exports.getInfo = async (req, res, next) => {
     try {
         await Contact.find({})
         .then((phoneBookData) => {
@@ -46,7 +46,7 @@ exports.getInfo = async (req, res) => {
 }
 
 // Add a new contact by "name" and "number"
-exports.addContact = async (req, res) => {
+exports.addContact = async (req, res, next) => {
     try {
         const {name, phoneNumber} = req.body;
         //Check if one of the details has not been entered 
@@ -66,7 +66,7 @@ exports.addContact = async (req, res) => {
 }
 
 //Delete contact from phoneBook by id
-exports.deleteContact = async (req, res) => {
+exports.deleteContact = async (req, res, next) => {
     try {
         const {id} = req.params;
         Contact.deleteOne({_id : id})

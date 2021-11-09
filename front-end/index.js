@@ -3,13 +3,20 @@
 
 // const BASEURL = "http://localhost:3001"; 
 const BASEURL = "";
+
+//PhoneBook
 const phonebookDiv = document.getElementById("phonebook-data");
+const serchBar = document.getElementById("seaech-contact");
+//General
 const errorDiv = document.getElementById("error-div");
+const infoDiv = document.getElementById("info-div");
+//Add new contact
 const showAddCont = document.getElementById("show-add");
 const addNewContentDiv = document.getElementById("add-content");
 const closeAddContent = document.getElementById("close-btn");
-const serchBar = document.getElementById("seaech-contact");
-const infoDiv = document.getElementById("info-div");
+const addNewContactBtn = document.getElementById("add-btn");
+const nameInput = document.getElementById("name-input");
+const numberInput = document.getElementById("number-input");
 
 /*---------- EVENT LISTENERS ----------*/
 window.addEventListener("load", generatePhoneBookToDom);
@@ -18,7 +25,30 @@ window.addEventListener("load", generateInfoToDom);
 showAddCont.addEventListener("click", () => addNewContentDiv.style.display = "flex");
 closeAddContent.addEventListener("click", () => addNewContentDiv.style.display = "none");
 
+addNewContactBtn.addEventListener("click", addNewContact);
+
 /*---------- NETWORK ----------*/
+//API requset for addind new contact
+async function addNewContact() {
+  try {
+    const response = await axios.post(`${BASEURL}/api/persons`, {
+      "name" : nameInput.value,
+      "phoneNumber" : numberInput.value
+    });
+
+    //Update DOM 
+     generatePhoneBookToDom();
+     generateInfoToDom();
+
+     nameInput.value = "";
+     numberInput.value = "";
+     addNewContentDiv.style.display = "none";
+
+  } catch (error) {
+    errorMessege(error.response.data.error, errorDiv);
+  }
+}
+
 //API request for general info
 async function getInfo() {
   try {

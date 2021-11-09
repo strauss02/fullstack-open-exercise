@@ -154,6 +154,7 @@ h2 {
 /*---------- ERROR MESSEGE ----------*/
 .error-messege {
     color: #de463b;
-    font-size: 2em;
+    font-size: 1em;
     margin: 1em;
+    line-height: 1.2em;
   }
