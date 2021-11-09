@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.use("/", express.static(`./Front`));
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/Front/index.html");
+  res.sendFile("../Front/index.html");
 });
 
 
