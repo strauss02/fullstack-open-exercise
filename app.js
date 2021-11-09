@@ -7,9 +7,9 @@ const cors = require('cors')
 app.use(cors())
 app.use(express.json());
 
-app.use("/", express.static(`./Front`));
+app.use("/", express.static(`./A Phonebook/Front`));
 app.get("/", (req, res) => {
-  res.sendFile("/A Phonebook/Front/index.html");
+  res.sendFile("./A Phonebook/Front/index.html");
 });
 
 
