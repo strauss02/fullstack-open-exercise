@@ -4,7 +4,7 @@ function displayContacts(allContacts) {
   const phonebookParent = document.getElementById("select-phonebook");
   for (let contact of allContacts) {
     const optionElement = document.createElement("option");
-    optionElement.setAttribute("value", contact.id);
+    optionElement.setAttribute("value", contact["_id"]);
     optionElement.textContent = contact.name;
     phonebookParent.append(optionElement);
   }
@@ -30,7 +30,7 @@ function displayContactDetails(contactDetails) {
   const contactId = document.getElementById("contact-id");
   const contactName = document.getElementById("contact-name");
   const contactNumber = document.getElementById("contact-number");
-  contactId.textContent = contactDetails.id;
+  contactId.textContent = contactDetails["_id"];
   contactName.textContent = contactDetails.name;
   contactNumber.textContent = contactDetails.number;
 }

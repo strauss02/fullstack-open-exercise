@@ -54,7 +54,6 @@ class Person {
 }
 
 apiRouter.get("/persons", (req, res) => {
-  //let dataBase = returnDataBase();
   Contact.find()
     .then((dataBase) => {
       res.json(dataBase);
@@ -67,13 +66,15 @@ apiRouter.get("/persons", (req, res) => {
 });
 
 apiRouter.get("/persons/:id", (req, res) => {
-  let dataBase = returnDataBase();
-  try {
-    const contact = dataBase.find(({ id }) => id === Number(req.params.id));
-    res.json(contact);
-  } catch (err) {
-    res.status(404).json({ message: "no such contact", status: 404 });
-  }
+  Contact.findById(req.params.id)
+    .then((dataBase) => {
+      res.json(dataBase);
+    })
+    .catch((err) => {
+      res
+        .status(404)
+        .json({ message: "had problems loading contacts", status: 404 });
+    });
 });
 
 apiRouter.post(
