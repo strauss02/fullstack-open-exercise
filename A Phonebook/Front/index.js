@@ -1,5 +1,3 @@
-const { default: axios } = require("axios");
-
 const baseUrl = '/api/persons'
 const phoneInput = document.getElementById("phoneInput")
 const nameInput = document.getElementById("nameInput")
@@ -18,6 +16,7 @@ document.getElementById("cancel").addEventListener("click",()=>{
 
 async function getAll(){
     const response = await axios.get(baseUrl)
+    console.log(response.data)
     document.getElementById("phoneAderess").innerHTML = ""
     response.data.forEach(element => {
         const address = createElement("div","","phone")
@@ -49,9 +48,9 @@ async function addAddress(){
             })
             notyf.success(`${nameInput.value} added to address book`)
         }else{
-            axios.put(`${baseUrl}/updateNumber`,{
-                id:response.data,
-                number: phoneInput
+            await axios.put(`${baseUrl}/updateNumber`,{
+                name:nameInput.value,
+                number: phoneInput.value
             })
         }
         nameInput.value =""

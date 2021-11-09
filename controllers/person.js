@@ -61,7 +61,6 @@ exports.newContact = async(req,res,next) =>{
 exports.nameIsExists = async(req,res,next)=>{
     try {
         const _name = req.params.name;
-        console.log(_name)
         const nameExist = await Contact.find({name: _name})
         if(nameExist.length){
             res.send(nameExist[0].id)
@@ -74,11 +73,11 @@ exports.nameIsExists = async(req,res,next)=>{
 }
 
 exports.updateNumber = async(req,res,next)=>{
-    Contact.findOneAndUpdate({ id: req.params.name}, { number: req.body.number })
-    .then(console.log('updated'))
-    .catch(err =>(
+    Contact.findOneAndUpdate({ name: req.body.name}, { number: req.body.number })
+    .then(res.send('updated'))
+    .catch(err =>{
         next(err)
-    )
+    })
 }
 
 
