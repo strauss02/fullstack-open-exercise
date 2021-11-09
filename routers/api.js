@@ -3,7 +3,7 @@ const router = express.Router();
 const path = require("path");
 const fs = require("fs");
 const {generateId, validateName} = require("../helpers/validate");
-const {getAllContacts} = require("../controller/contact");
+const { getAllContacts, getContactById } = require("../controller/contact");
 
 
 const dataFilePath = path.resolve(__dirname, "../phoneBook.json");
@@ -14,22 +14,8 @@ const dataFilePath = path.resolve(__dirname, "../phoneBook.json");
 //Get request for phoneBook data (3.1) + using extenal function that takes information from MongoDB(3.13) 
 router.get('/persons', getAllContacts);
 
-//Get request for phoneBook person data (3.3)
-router.get('/persons/:id', (req, res) => {
-    try {
-        const reqId = req.params.id;
-        const phoneBookData = JSON.parse(fs.readFileSync(dataFilePath));
-        for (const person of phoneBookData) {
-            //If the ID matches, you will return the object that match in the phonebook
-            if (Number(person.id) === Number(reqId)) {
-                res.json(person);
-            }
-        }
-        throw {"status": 404, "messege":  `bad request - no person with ID ${reqId}`};
-    } catch (error) {
-        throw {"status": error.status, "messege": error.messege};
-    }
-})
+//Get request for phoneBook person data (3.3) + Get singel contact by id from mongoDB (3.13)
+router.get('/persons/:id', getContactById);
 
 //DELETE request by id (3.4)
 router.delete("/persons/:id", (req, res) => {
