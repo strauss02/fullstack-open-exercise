@@ -13,7 +13,7 @@
     * [X] Reading
     * [X] Exercise 3.12.
     * [X] Exercises 3.13.-3.14.
-    * [ ] Exercises 3.15.-3.18.
+    * [X] Exercises 3.15.-3.18.
 * ### [ ] d. Validation and ESLint
     * [ ] Reading
     * [ ] Exercises 3.19.-3.21.

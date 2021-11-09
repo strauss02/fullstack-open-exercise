@@ -19,16 +19,27 @@ const nameInput = document.getElementById("name-input");
 const numberInput = document.getElementById("number-input");
 
 /*---------- EVENT LISTENERS ----------*/
-window.addEventListener("load", generatePhoneBookToDom);
-window.addEventListener("load", generateInfoToDom);
+window.addEventListener("load", generatePhoneBookToDom); //Add contacts in DOM while loading the app
+window.addEventListener("load", generateInfoToDom); //Add info details in DOM while loading the app
 
 showAddCont.addEventListener("click", () => addNewContentDiv.style.display = "flex");
 closeAddContent.addEventListener("click", () => addNewContentDiv.style.display = "none");
 
-addNewContactBtn.addEventListener("click", addContactHandler);
+addNewContactBtn.addEventListener("click", addContactHandler); // Add or update phone number by name
+
+// Serch contact on every key press
+serchBar.addEventListener("keyup", (event) => {
+  const searchStr = serchBar.value.toLowerCase();
+  const allContactsNamesElem = document.querySelectorAll('.name');
+  for (let i = 0; i < allContactsNamesElem.length; i++) {
+    const contactName = allContactsNamesElem[i];
+    filterContactsByStr(contactName, searchStr);
+  }
+});
 
 /*---------- NETWORK ----------*/
-//Check if name is already exsist in the DB - if so will sent post request and update the number, else will add him
+
+//Check if name is already exsist in the DB - if so will sent put request and update the number, else will add him by post request
 async function addContactHandler() {
   try {
     const response = await axios.get(`${BASEURL}/api/persons/names/${nameInput.value}`);
@@ -148,7 +159,6 @@ async function generatePhoneBookToDom() {
         }
 
     } catch (error) {
-        console.log(error)
         errorMessege(error.response.data.error, errorDiv);
     }
 }
@@ -169,15 +179,6 @@ function removeContentFromDom(event) {
         errorMessege(error.response.data.error, errorDiv);
     }
 }
-// Serch contact on every key press
-serchBar.addEventListener("keyup", (event) => {
-  const searchStr = serchBar.value.toLowerCase();
-  const allContactsNamesElem = document.querySelectorAll('.name');
-  for (let i = 0; i < allContactsNamesElem.length; i++) {
-    const contactName = allContactsNamesElem[i];
-    filterContactsByStr(contactName, searchStr);
-  }
-})
 
 // Gets a nameElem and a string. If it contains the string it will display the contact otherwise it will disappear.
 function filterContactsByStr(nameElem, searchStr) {
