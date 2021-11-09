@@ -12,7 +12,7 @@ router.get('/persons', getAllContacts);
 //Get request for phoneBook person data (3.3) + Get singel contact by id from mongoDB (3.13)
 router.get('/persons/:id', getContactById);
 
-//DELETE request by id (3.4) + + Delete contact by id from mongoDB (3.14)
+//DELETE request by id (3.4) + + Delete contact by id from mongoDB (3.15)
 router.delete("/persons/:id", deleteContact);
 
 //Add a new person phone data gets in body {"phoneNumber": .... , "name": ....} (3.5 + 3.6) + Add new contact to mongoDB (3.14)
