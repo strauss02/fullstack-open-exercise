@@ -143,6 +143,7 @@ async function generatePhoneBookToDom() {
             const idElem = createElement("label", phoneMember.id , "id");
             const nameElem = createElement("label", phoneMember.name , "name");
             const numberElem = createElement("label", phoneMember.number , "number");
+            const buttonContainer = createElement("div", "", "button-container");
             const removeButton = createElement("button", "Delete" , "delte-btn");
              // Adding remove content API request function as listener + update phoeBook
             removeButton.addEventListener("click", removeContentFromDom);
@@ -150,11 +151,13 @@ async function generatePhoneBookToDom() {
             callButton.addEventListener("click", ()=> alert("calling..."))
 
             //Append elements
+            buttonContainer.appendChild(callButton);
+            buttonContainer.appendChild(removeButton);
+
             phoneMemberDiv.appendChild(idElem);
             phoneMemberDiv.appendChild(nameElem);
             phoneMemberDiv.appendChild(numberElem);
-            phoneMemberDiv.appendChild(callButton);
-            phoneMemberDiv.appendChild(removeButton);
+            phoneMemberDiv.appendChild(buttonContainer);
             phonebookDiv.appendChild(phoneMemberDiv);
         }
 
@@ -171,7 +174,7 @@ function clearPhoneBookFromDom() {
 function removeContentFromDom(event) {
     try {
         // Reach the element id through the parent, reach the number contained in the content
-        const phoneMemberIdNum = event.target.parentElement.firstElementChild.textContent; 
+        const phoneMemberIdNum = event.target.parentElement.parentElement.firstElementChild.textContent; 
         deletefromPhoneBook(phoneMemberIdNum); // Delete from DB
         generatePhoneBookToDom(); //Update the DOM according to changes
         generateInfoToDom(); //Update info on DOM

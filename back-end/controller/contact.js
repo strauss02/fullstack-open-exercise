@@ -107,9 +107,11 @@ exports.updateContact = async (req, res, next) => {
 exports.deleteContact = async (req, res, next) => {
     try {
         const {id} = req.params;
+        console.log(id);
         Contact.deleteOne({_id : id})
         .then(() => res.status(204).send(`Person ${id} is not on the list anymore!`))
         .catch( (error) => {
+            console.log(error);
             next({"status": 400, "messege": "Can't delete contact"})
         });
     } catch (error) {

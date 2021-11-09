@@ -63,7 +63,10 @@ h1 {
 .id {
     display: none;
 }
-
+.button-container {
+    display: flex;
+    justify-content: space-between;    
+}
 .delte-btn {
     background-color: red;
     color: whitesmoke;
