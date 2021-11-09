@@ -8,6 +8,7 @@ const fs = require('fs')
 const cors = require('cors')
 
 const errorHandler = require('./errorHandler.js')
+const Contact = require('./models/contact.js')
 
 /* ================ Middleware ============= */
 
@@ -29,8 +30,38 @@ const generateId = () => {
 
 app.use(express.static('./client'))
 
+/* ================ Test Zone ============= */
+/*
+const mongoose = require('mongoose')
+const password = 'dozen12' // process.argv[2]
+const databaseName = 'phonebookDB'
+
+const url = `mongodb+srv://ido:${password}@cluster0.8yoes.mongodb.net/${databaseName}?retryWrites=true&w=majority`
+
+mongoose.connect(url)
+
+const contactSchema = new mongoose.Schema({
+  name: String,
+  date: Date,
+  number: Number,
+})
+
+contactSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  },
+})
+
+const Contact = mongoose.model('Contact', contactSchema)
+*/
+/* ================ End Test Zone ============= */
+
 app.get('/api/persons', (req, res) => {
-  res.send(data)
+  Contact.find({}).then((contacts) => {
+    res.json(contacts)
+  })
 })
 
 app.get('/api/info', (req, res) => {
