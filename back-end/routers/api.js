@@ -10,7 +10,8 @@ const { getAllContacts, getContactById, addContact, deleteContact, isNameThere, 
 router.get("/persons", getAllContacts);
 
 //Get request for phoneBook person data (3.3) + Get singel contact by id from mongoDB (3.13)
-router.get('/persons/:id', getContactById);
+router.get("/persons/:id", getContactById);
+
 //Rerurn  true / false if name exsists
 router.get("/persons/names/:name", isNameThere);
 

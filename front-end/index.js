@@ -28,6 +28,26 @@ closeAddContent.addEventListener("click", () => addNewContentDiv.style.display =
 addNewContactBtn.addEventListener("click", addNewContact);
 
 /*---------- NETWORK ----------*/
+//API requset for update contact number 
+async function updateContact() {
+  try {
+    const response = await axios.put(`${BASEURL}/api/persons`, {
+      "name" : nameInput.value,
+      "phoneNumber" : numberInput.value
+    });
+
+    //Update DOM 
+     generatePhoneBookToDom();
+
+     nameInput.value = "";
+     numberInput.value = "";
+     addNewContentDiv.style.display = "none";
+
+  } catch (error) {
+    errorMessege(error.response.data.error, errorDiv);
+  }
+}
+
 //API requset for addind new contact
 async function addNewContact() {
   try {

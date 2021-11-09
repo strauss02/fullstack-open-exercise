@@ -83,6 +83,26 @@ exports.addContact = async (req, res, next) => {
     }
 }
 
+//Update contact phone number by name
+exports.updateContact = async (req, res, next) => {
+    try {
+        const {name, phoneNumber} = req.body;
+        //Check if one of the details has not been entered 
+        if (!name || !phoneNumber) {
+            next({"status": 400, "messege": "Must enter name and number"});
+        }
+        Contact.findOneAndUpdate({ name }, {"number": phoneNumber})
+        .then( (savedContact) => res.status(200).send(true) )
+        .catch( (error) => {
+            next({"status": 400, "messege": "Can't update contact, try to choose another name or number"})
+        });
+
+    } catch (error) {
+        next({"status": error.status, "messege": error.messege});
+    }
+}
+
+
 //Delete contact from phoneBook by id
 exports.deleteContact = async (req, res, next) => {
     try {
