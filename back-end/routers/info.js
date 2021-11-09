@@ -4,7 +4,7 @@ const { getInfo } = require("../controller/contact");
 
 // /info
 
-//Get request for phoneBook info & request time (3.2)
+//Get request for phoneBook info & request time (3.2) + Get info from mongoDB (3.13)
 router.get("/", getInfo);
 
 

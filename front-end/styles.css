@@ -60,6 +60,9 @@ h1 {
     background-color: rgba(0, 128, 128, 0.3);
     font-size: 1em;
 }
+.id {
+    display: none;
+}
 
 .delte-btn {
     background-color: red;
@@ -148,7 +151,7 @@ h2 {
     font-size: 1em;
 }
 
-/*---------- ADD NEW CONTENT MEMBER ----------*/
+/*---------- ERROR MESSEGE ----------*/
 .error-messege {
     color: #de463b;
     font-size: 2em;
