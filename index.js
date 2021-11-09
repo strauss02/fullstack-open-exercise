@@ -5,8 +5,19 @@ const cors = require("cors");
 const PORT = process.env.PORT || 3001;
 const infoRouter = require("./routers/info");
 const apiRouter = require("./routers/api");
-// const morgan = require('morgan');
+const mongoose = require("mongoose");
+require("dotenv").config();
+
+// DB
+mongoose
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+  })
+  .then(() => console.log("DB Connected"))
+  .catch((error) => console.log(error));
+
 //MiddleWares
+// const morgan = require('morgan');
 const {errorHandlerMiddleware} = require("./middlewares/errorHandler");
 
 
