@@ -110,7 +110,7 @@ document.getElementById("addContact").addEventListener("click", async (e) => {
   e.stopImmediatePropagation();
   document.getElementById("select-phonebook").innerHTML = "";
   if (await getContactExist(document.getElementById("contectName").value)) {
-    updateContact();
+    await updateContact();
   } else {
     await addContact();
   }
