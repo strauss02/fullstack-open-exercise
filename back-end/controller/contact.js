@@ -82,6 +82,7 @@ exports.addContact = async (req, res, next) => {
         next({"status": error.status, "messege": error.messege});
     }
 }
+            "Can't add new contact, number has to have 8 digits, name has to have 3 letters",
 
 //Update contact phone number by name
 exports.updateContact = async (req, res, next) => {

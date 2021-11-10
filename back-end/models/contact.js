@@ -17,6 +17,8 @@ const contactsSchema = new mongoose.Schema({
       required: true
     },
 })
+    minLength: 3,
+    minLength: 8,
 
 contactsSchema.set('toJSON', {
   transform: (document, returnedObject) => {
