@@ -17,19 +17,6 @@ const contactSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      // validate: {
-      //   validator: async function (name) {
-      //     const user = await this.constructor.findOne({ name });
-      //     if (user) {
-      //       if (this.id === user.id) {
-      //         return true;
-      //       }
-      //       return false;
-      //     }
-      //     return true;
-      //   },
-      //   message: (props) => "The specified name is already in use.",
-      // },
     },
     number: {
       type: String,
