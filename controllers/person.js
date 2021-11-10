@@ -63,7 +63,7 @@ exports.nameIsExists = async(req,res,next)=>{
         const _name = req.params.name;
         const nameExist = await Contact.find({name: _name})
         if(nameExist.length){
-            res.send(nameExist[0].id)
+            res.send(true)
         }else{
             res.send(false)
         }
