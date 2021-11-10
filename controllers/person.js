@@ -47,11 +47,9 @@ exports.newContact = async(req,res,next) =>{
         });
         person.save().then(savedPerson => {
             res.json(savedPerson)
-        }).catch(err =>
-            next({
-                status: 404,
-                message: 'name is taken'
-            })
+        }).catch(err =>{
+            next(err)
+        }
         )
     } catch (error) {
         next()

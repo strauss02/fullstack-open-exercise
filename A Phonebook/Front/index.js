@@ -16,22 +16,28 @@ document.getElementById("cancel").addEventListener("click", () => {
 
 // render contact
 async function getAll() {
-  const response = await axios.get(baseUrl);
-  document.getElementById("phoneAderess").innerHTML = "";
-  response.data.forEach((element) => {
-    const address = createElement("div", "", "phone");
-    const name = createElement("label", element.name, "name");
-    const number = createElement("label", element.number, "number");
-    const removeBtn = createElement("button", "remove", "removeBtn");
-    address.appendChild(name);
-    address.appendChild(number);
-    address.appendChild(removeBtn);
-    address.id = element.id;
-    document.getElementById("phoneAderess").appendChild(address);
-    document.querySelectorAll(".removeBtn").forEach((btn) => {
-      btn.addEventListener("click", removeContact);
+  try {
+    const response = await axios.get(baseUrl);
+    console.log(response)
+    document.getElementById("phoneAderess").innerHTML = "";
+    response.data.forEach((element) => {
+      const address = createElement("div", "", "phone");
+      const name = createElement("label", element.name, "name");
+      const number = createElement("label", element.number, "number");
+      const removeBtn = createElement("button", "remove", "removeBtn");
+      address.appendChild(name);
+      address.appendChild(number);
+      address.appendChild(removeBtn);
+      address.id = element.id;
+      document.getElementById("phoneAderess").appendChild(address);
+      document.querySelectorAll(".removeBtn").forEach((btn) => {
+        btn.addEventListener("click", removeContact);
+      });
     });
-  });
+  } catch (error) {
+    notyf.error(error.response.data.error)
+    
+  }
 }
 
 // Add new contact
@@ -58,7 +64,6 @@ async function addAddress() {
     phoneInput.value = "";
     getAll();
   } catch (err) {
-    P;
     notyf.error(err.response.data.error);
   }
 }
