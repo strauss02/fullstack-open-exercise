@@ -3,22 +3,98 @@
 
 // const BASEURL = "http://localhost:3001"; 
 const BASEURL = "";
+
+//PhoneBook
 const phonebookDiv = document.getElementById("phonebook-data");
+const serchBar = document.getElementById("seaech-contact");
+//General
 const errorDiv = document.getElementById("error-div");
+const infoDiv = document.getElementById("info-div");
+//Add new contact
 const showAddCont = document.getElementById("show-add");
 const addNewContentDiv = document.getElementById("add-content");
 const closeAddContent = document.getElementById("close-btn");
-const serchBar = document.getElementById("seaech-contact");
-const infoDiv = document.getElementById("info-div");
+const addNewContactBtn = document.getElementById("add-btn");
+const nameInput = document.getElementById("name-input");
+const numberInput = document.getElementById("number-input");
 
 /*---------- EVENT LISTENERS ----------*/
-window.addEventListener("load", generatePhoneBookToDom);
-window.addEventListener("load", generateInfoToDom);
+window.addEventListener("load", generatePhoneBookToDom); //Add contacts in DOM while loading the app
+window.addEventListener("load", generateInfoToDom); //Add info details in DOM while loading the app
 
 showAddCont.addEventListener("click", () => addNewContentDiv.style.display = "flex");
 closeAddContent.addEventListener("click", () => addNewContentDiv.style.display = "none");
 
+addNewContactBtn.addEventListener("click", addContactHandler); // Add or update phone number by name
+
+// Serch contact on every key press
+serchBar.addEventListener("keyup", (event) => {
+  const searchStr = serchBar.value.toLowerCase();
+  const allContactsNamesElem = document.querySelectorAll('.name');
+  for (let i = 0; i < allContactsNamesElem.length; i++) {
+    const contactName = allContactsNamesElem[i];
+    filterContactsByStr(contactName, searchStr);
+  }
+});
+
 /*---------- NETWORK ----------*/
+
+//Check if name is already exsist in the DB - if so will sent put request and update the number, else will add him by post request
+async function addContactHandler() {
+  try {
+    const response = await axios.get(`${BASEURL}/api/persons/names/${nameInput.value}`);
+    if (response.data) { 
+      updateContact(); //Name already on phoneBook, update number
+    } else {
+      addNewContact(); //Add new contact
+    }
+
+  } catch (error) {
+    errorMessege(error.response.data.error, errorDiv);
+  }
+}
+
+//API requset for update contact number 
+async function updateContact() {
+  try {
+    const response = await axios.put(`${BASEURL}/api/persons`, {
+      "name" : nameInput.value,
+      "phoneNumber" : numberInput.value
+    });
+
+    //Update DOM 
+     generatePhoneBookToDom();
+
+     nameInput.value = "";
+     numberInput.value = "";
+     addNewContentDiv.style.display = "none";
+
+  } catch (error) {
+    errorMessege(error.response.data.error, errorDiv);
+  }
+}
+
+//API requset for addind new contact
+async function addNewContact() {
+  try {
+    const response = await axios.post(`${BASEURL}/api/persons`, {
+      "name" : nameInput.value,
+      "phoneNumber" : numberInput.value
+    });
+
+    //Update DOM 
+     generatePhoneBookToDom();
+     generateInfoToDom();
+
+     nameInput.value = "";
+     numberInput.value = "";
+     addNewContentDiv.style.display = "none";
+
+  } catch (error) {
+    errorMessege(error.response.data.error, errorDiv);
+  }
+}
+
 //API request for general info
 async function getInfo() {
   try {
@@ -67,6 +143,7 @@ async function generatePhoneBookToDom() {
             const idElem = createElement("label", phoneMember.id , "id");
             const nameElem = createElement("label", phoneMember.name , "name");
             const numberElem = createElement("label", phoneMember.number , "number");
+            const buttonContainer = createElement("div", "", "button-container");
             const removeButton = createElement("button", "Delete" , "delte-btn");
              // Adding remove content API request function as listener + update phoeBook
             removeButton.addEventListener("click", removeContentFromDom);
@@ -74,16 +151,17 @@ async function generatePhoneBookToDom() {
             callButton.addEventListener("click", ()=> alert("calling..."))
 
             //Append elements
+            buttonContainer.appendChild(callButton);
+            buttonContainer.appendChild(removeButton);
+
             phoneMemberDiv.appendChild(idElem);
             phoneMemberDiv.appendChild(nameElem);
             phoneMemberDiv.appendChild(numberElem);
-            phoneMemberDiv.appendChild(callButton);
-            phoneMemberDiv.appendChild(removeButton);
+            phoneMemberDiv.appendChild(buttonContainer);
             phonebookDiv.appendChild(phoneMemberDiv);
         }
 
     } catch (error) {
-        console.log(error)
         errorMessege(error.response.data.error, errorDiv);
     }
 }
@@ -96,7 +174,7 @@ function clearPhoneBookFromDom() {
 function removeContentFromDom(event) {
     try {
         // Reach the element id through the parent, reach the number contained in the content
-        const phoneMemberIdNum = event.target.parentElement.firstElementChild.textContent; 
+        const phoneMemberIdNum = event.target.parentElement.parentElement.firstElementChild.textContent; 
         deletefromPhoneBook(phoneMemberIdNum); // Delete from DB
         generatePhoneBookToDom(); //Update the DOM according to changes
         generateInfoToDom(); //Update info on DOM
@@ -104,15 +182,6 @@ function removeContentFromDom(event) {
         errorMessege(error.response.data.error, errorDiv);
     }
 }
-// Serch contact on every key press
-serchBar.addEventListener("keyup", (event) => {
-  const searchStr = serchBar.value.toLowerCase();
-  const allContactsNamesElem = document.querySelectorAll('.name');
-  for (let i = 0; i < allContactsNamesElem.length; i++) {
-    const contactName = allContactsNamesElem[i];
-    filterContactsByStr(contactName, searchStr);
-  }
-})
 
 // Gets a nameElem and a string. If it contains the string it will display the contact otherwise it will disappear.
 function filterContactsByStr(nameElem, searchStr) {

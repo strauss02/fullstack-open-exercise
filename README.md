@@ -10,10 +10,10 @@
     * [X] Reading
     * [X] Exercises 3.9.-3.11. - my Full-stack deployment to Heroku : https://phonebook-rama.herokuapp.com/
 * ### [ ] c. Saving data to MongoDB
-    * [ ] Reading
-    * [ ] Exercise 3.12.
-    * [ ] Exercises 3.13.-3.14.
-    * [ ] Exercises 3.15.-3.18.
+    * [X] Reading
+    * [X] Exercise 3.12.
+    * [X] Exercises 3.13.-3.14.
+    * [X] Exercises 3.15.-3.18.
 * ### [ ] d. Validation and ESLint
     * [ ] Reading
     * [ ] Exercises 3.19.-3.21.
