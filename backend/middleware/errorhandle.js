@@ -5,17 +5,6 @@ const path = require("path");
 const mongoose = require("mongoose");
 const { Contact } = require("../routers/mongodb");
 
-// /*
-//     get database
-// */
-// function returnDataBase() {
-//   let dataBase = fs.readFileSync(
-//     path.resolve(__dirname, "../../database.json")
-//   );
-//   let dataBaseJson = JSON.parse(dataBase.toString());
-//   return dataBaseJson;
-// }
-
 /*
     error 500
 */
@@ -48,7 +37,7 @@ function middlewarePageNotFound(req, res, next) {
     The name or number is missing
 */
 function middlewareMissingNameOrNumber(req, res, next) {
-  if (req.body.name && req.body.number && req.body.number.length >= 10) {
+  if (req.body.name && req.body.number) {
     next();
   } else {
     res.status(401).json({

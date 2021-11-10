@@ -41,7 +41,7 @@ apiRouter.post(
   middlewareNameAlreadyExist,
   (req, res) => {
     const contact = new Contact({
-      name: req.body.name,
+      name: req.body.name.toLowerCase(),
       number: req.body.number,
     });
     contact
