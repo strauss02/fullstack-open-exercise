@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const { getAllContacts, getContactById, addContact, deleteContact, isNameThere, updateContact } = require('../controller/contact')
-
+const { validatePhoneNumber } = require('../middlewares/validator')
 // /api
 
 
@@ -19,9 +19,9 @@ router.get('/persons/names/:name', isNameThere)
 router.delete('/persons/:id', deleteContact)
 
 //Add a new person phone data gets in body {"phoneNumber": .... , "name": ....} (3.5 + 3.6) + Add new contact to mongoDB (3.14)
-router.post('/persons',addContact)
+router.post('/persons',validatePhoneNumber,addContact)
 
 //Update contact phone number by name
-router.put('/persons', updateContact)
+router.put('/persons',validatePhoneNumber, updateContact)
 
 module.exports = router
