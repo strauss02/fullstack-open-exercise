@@ -11,26 +11,33 @@
     <title>PhoneBook</title>
 </head>
 <body>
-    <h1> <i class="far fa-address-book"></i> PhoneBook </h1>
-
-    <div id="error-div"></div>
+    <div id="headers">
+        <h1> <i class="far fa-address-book"></i> PhoneBook </h1>
     
-    <div id="info-div"></div>
+        <div id="error-div"></div>
+        
+        <div id="info-div"></div>
 
-    <button id="show-add"><i class="fas fa-user-plus"></i> Add new contact</button>
-    <div id="add-content" class="add-content">
-        <h2>Add new contact</h2>
-        <div id="inputs-div">
-            <input id ="name-input" class="add-input" placeholder="Name">
-            <input id ="number-input" class="add-input" placeholder="Phone number">
-         </div>
-         <button id="add-btn"> <i class="fas fa-user-plus"></i> </button>
-         <button id="close-btn"> <i class="far fa-window-close"></i> </button>
-    </div> 
+        <button id="show-add"><i class="fas fa-user-plus"></i> Add new contact</button>
+        <div id="add-content" class="add-content">
+            <button id="close-btn"> <i class="far fa-window-close"></i> </button>
+            <h2>Add new contact</h2>
+            <div id="inputs-div">
+                <input id ="name-input" class="add-input" placeholder="Name">
+                <input id ="number-input" class="add-input" placeholder="Phone number">
+             </div>
+             <div id="buttons-div">
+                 <button id="add-btn"> <i class="fas fa-user-plus"></i> </button>
+             </div>
+        </div> 
+    </div>
 
-   <div id="phonebook-data">
-       <h2> Your contacts </h2>
-       <input id="seaech-contact" placeholder="🔎search...">
-   </div>
+    <div id="main">
+    
+       <div id="phonebook-data">
+           <h2> Your contacts </h2>
+           <input id="seaech-contact" placeholder="🔎search...">
+       </div>
+    </div>
 </body>
 </html>

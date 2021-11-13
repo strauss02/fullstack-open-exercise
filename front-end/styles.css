@@ -5,22 +5,38 @@
 body {
     font-family: "Poppins", sans-serif;
     /* font-family: 'Staatliches', cursive; */
-    font-size: 16px;
+    font-size: 10px;
     color: #222;
     background-color:#869296;
     background-image: linear-gradient(315deg, #829196 0%, #c1cdd6 74%);
     text-align: center;
-    line-height: 1.4em;
-    width: 70%;
-    margin-left: 15%;
-    margin-right: 15%;
+    line-height: 1em;
     font-size: 1.5em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+#headers {
+    width: 30%;
+    height: 100%;
+}
+#main {
+    width: 70%;
+    height: 100%;
 }
 
 h1 {
     letter-spacing: 4px;
-    font-size: 3em;
+    font-size: 2em;
     color: whitesmoke;
+}
+
+h2 {
+    font-size: 1em;
+}
+
+h3 {
+    font-size: 0.75em;
 }
 
 /*---------- PHONEBOOK ----------*/
@@ -32,10 +48,13 @@ h1 {
     margin-top: 1em;
     background-color: rgba(245, 245, 245, 0.452);
 	box-shadow: 0.25em 0.25em rgba(0, 128, 128, 0.3);
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
 }
 #phonebook-data > h2 {
-    font-size: 2em;
-    height: 1.25em;
+    font-size: 1.5em;
+    height: 1em;
     color: teal;
 }
 #seaech-contact {
@@ -58,7 +77,7 @@ h1 {
     justify-content: space-between;
     padding: 0.5em;
     background-color: rgba(0, 128, 128, 0.3);
-    font-size: 1em;
+    font-size: 0.75em;
 }
 .id {
     display: none;
@@ -72,6 +91,7 @@ h1 {
     color: whitesmoke;
     border-radius: 0.75em;
     cursor: pointer;
+    margin-left: 0.2em;
 
 }
 .delte-btn:hover {
@@ -97,32 +117,38 @@ h1 {
 .add-content {
     background-color: rgba(65, 105, 225, 0.452);
     border-radius: 0.75em;
-    padding: 0.5em;
+    padding: 0.25em;
     display: none;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
     margin: 0.5em;
-}
-h2 {
-    font-size: 1em;
+    width: 95%;
 }
 #inputs-div {
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 90%;
 }
 .add-input{
     font-family: 'Staatliches', cursive;
     font-size: 0.5em;
     width: 100%;
     height: 10%;
+    margin-bottom: 5%;
     text-align: center;
     padding: 5px;
     border-radius: 5em;
     margin-top: 0.25em;
 }
+#buttons-div{
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.2em;
+    justify-content: space-around;
+}
 #close-btn {
-    padding: 0.5em;
+    padding: 0.2em;
     background-color:#de463b;
     color: whitesmoke;
     border-radius: 0.75em;
@@ -134,12 +160,13 @@ h2 {
     color: #de463b;
 }
 #add-btn {
-    padding: 0.5em;
+    padding: 0.35em;
     background-color:royalblue;
     color: whitesmoke;
     border-radius: 0.75em;
     cursor: pointer;
     font-size: 1em;
+    width:3em;
 }
 #add-btn:hover {
     background-color: whitesmoke;
@@ -151,13 +178,14 @@ h2 {
     color: whitesmoke;
     border-radius: 0.75em;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 0.75em;
 }
 
 /*---------- ERROR MESSEGE ----------*/
 .error-messege {
-    color: #de463b;
+    color:antiquewhite;
     font-size: 1em;
     margin: 1em;
     line-height: 1.2em;
+    background-color:#de463b;
   }
