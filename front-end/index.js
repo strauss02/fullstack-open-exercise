@@ -8,7 +8,6 @@ const BASEURL = ''
 const phonebookDiv = document.getElementById('phonebook-data')
 const serchBar = document.getElementById('seaech-contact')
 //General
-const errorDiv = document.getElementById('error-div')
 const infoDiv = document.getElementById('info-div')
 //Add new contact
 const showAddCont = document.getElementById('show-add')
@@ -43,7 +42,7 @@ serchBar.addEventListener('keyup', () => {
 async function addContactHandler() {
   try {
     if (!nameInput.value) {
-      errorMessege('Must enter name', errorDiv)
+      errorMessege('Must enter name')
       return
     }
     const response = await axios.get(`${BASEURL}/api/persons/names/${nameInput.value}`)
@@ -54,7 +53,7 @@ async function addContactHandler() {
     }
 
   } catch (error) {
-    errorMessege(error.response.data.error, errorDiv)
+    errorMessege(error.response.data.error)
   }
 }
 
@@ -74,7 +73,7 @@ async function updateContact() {
     addNewContentDiv.style.display = 'none'
 
   } catch (error) {
-    errorMessege(error.response.data.error, errorDiv)
+    errorMessege(error.response.data.error)
   }
 }
 
@@ -95,7 +94,7 @@ async function addNewContact() {
     addNewContentDiv.style.display = 'none'
 
   } catch (error) {
-    errorMessege(error.response.data.error, errorDiv)
+    errorMessege(error.response.data.error)
   }
 }
 
@@ -107,7 +106,7 @@ async function getInfo() {
     return response.data
 
   } catch (error) {
-    errorMessege(error.response.data.error, errorDiv)
+    errorMessege(error.response.data.error)
   }
 }
 //API request phoneBook data
@@ -119,7 +118,7 @@ async function getPhoneBook() {
 
     return phoneBookObj
   } catch (error) {
-    errorMessege(error.response.data.error, errorDiv)
+    errorMessege(error.response.data.error)
   }
 }
 
@@ -130,7 +129,7 @@ async function deletefromPhoneBook(id) {
     await axios.delete(`${BASEURL}/api/persons/${id}`)
 
   } catch (error) {
-    errorMessege(error.response.data.error, errorDiv)
+    errorMessege(error.response.data.error)
   }
 }
 
@@ -173,7 +172,7 @@ async function generatePhoneBookToDom() {
     }
 
   } catch (error) {
-    errorMessege(error.response.data.error, errorDiv)
+    errorMessege(error.response.data.error)
   }
 }
 
@@ -190,7 +189,7 @@ function removeContentFromDom(event) {
     generatePhoneBookToDom() //Update the DOM according to changes
     generateInfoToDom() //Update info on DOM
   } catch (error) {
-    errorMessege(error.response.data.error, errorDiv)
+    errorMessege(error.response.data.error)
   }
 }
 
@@ -205,12 +204,15 @@ function filterContactsByStr(nameElem, searchStr) {
 }
 /*---------- ERROR HANDLER ----------*/
 //Display Error massege
-function errorMessege(messege, element) {
-  const errorElem = document.createElement('div')
-  errorElem.textContent = `Sorry ${messege}, please try again! ❌`
-  errorElem.classList.add('error-messege')
-  element.appendChild(errorElem)
-  setTimeout(() => errorElem.remove(), 5000)
+function errorMessege(messege) {
+  swal({
+    title: `${messege}, please try again!`,
+    buttons: 'OK',
+    timer: 5000,
+    icon: 'error',
+    class: 'swal-button',
+    closeOnClickOutside: true,
+  })
 }
 
 /*---------- DOM RELATED ----------*/
