@@ -152,7 +152,14 @@ async function generatePhoneBookToDom() {
       // Adding remove content API request function as listener + update phoeBook
       removeButton.addEventListener('click', removeContentFromDom)
       const callButton = createElement('button', 'Call' , 'call-btn')
-      callButton.addEventListener('click', () => alert('calling...'))
+      callButton.addEventListener('click', () =>
+        swal({
+          title: `Calling ${phoneMember.name}...`,
+          button: 'hangUp',
+          class: 'swal-overlay swal-button',
+          closeOnClickOutside: true,
+        })
+      )
 
       //Append elements
       buttonContainer.appendChild(callButton)

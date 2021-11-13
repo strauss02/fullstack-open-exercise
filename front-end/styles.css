@@ -101,7 +101,7 @@ h3 {
 
 .call-btn {
     align-self: right;
-    background-color: rgb(25, 141, 60);
+    background-color: rgb(28, 163, 132);
     color: whitesmoke;
     border-radius: 0.75em;
     cursor: pointer;
@@ -188,4 +188,17 @@ h3 {
     margin: 1em;
     line-height: 1.2em;
     background-color:#de463b;
+  }
+
+  /*---------- SWAL MESSEGE ----------*/
+  .swal-overlay {
+    background-color: rgba(28, 163, 132, 0.45);
+  }
+  .swal-button {
+    padding: 7px 19px;
+    border-radius: 2px;
+    background-color: #b34949;
+    font-size: 12px;
+    border: 1px solid #3e549a;
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
   }
