@@ -143,6 +143,10 @@ h3 {
     border-radius: 5em;
     margin-top: 0.25em;
 }
+#formats {
+    font-size: 0.5em;
+    color: rgb(88, 88, 88);
+}
 #buttons-div{
     display: flex;
     flex-direction: row;
@@ -155,7 +159,8 @@ h3 {
     color: whitesmoke;
     border-radius: 0.75em;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 0.75em;
+    width:auto;
 }
 #close-btn:hover {
     background-color: whitesmoke;
@@ -167,8 +172,8 @@ h3 {
     color: whitesmoke;
     border-radius: 0.75em;
     cursor: pointer;
-    font-size: 1em;
-    width:3em;
+    font-size: 0.75em;
+    width:auto;
 }
 #add-btn:hover {
     background-color: whitesmoke;
