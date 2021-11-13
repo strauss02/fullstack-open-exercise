@@ -48,9 +48,9 @@ h3 {
     margin-top: 1em;
     background-color: rgba(245, 245, 245, 0.452);
 	box-shadow: 0.25em 0.25em rgba(0, 128, 128, 0.3);
-    width: 50%;
-    margin-left: 25%;
-    margin-right: 25%;
+    width: 70%;
+    margin-left: 20%;
+    margin-right: 10%;
 }
 #phonebook-data > h2 {
     font-size: 1.5em;
@@ -87,6 +87,7 @@ h3 {
     justify-content: space-between;    
 }
 .delte-btn {
+    font-size: 20px;
     background-color: red;
     color: whitesmoke;
     border-radius: 0.75em;
@@ -100,6 +101,7 @@ h3 {
 }
 
 .call-btn {
+    font-size: 20px;
     align-self: right;
     background-color: rgb(28, 163, 132);
     color: whitesmoke;

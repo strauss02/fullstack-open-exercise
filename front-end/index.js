@@ -1,4 +1,5 @@
 'use strict'
+
 /*---------- VARIIABLES DECLARATION ----------*/
 
 // const BASEURL = "http://localhost:3001";
@@ -42,6 +43,8 @@ serchBar.addEventListener('keyup', () => {
 async function addContactHandler() {
   try {
     if (!nameInput.value) {
+      nameInput.value =''
+      numberInput.value =''
       errorMessege('Must enter name')
       return
     }
@@ -53,6 +56,8 @@ async function addContactHandler() {
     }
 
   } catch (error) {
+    nameInput.value =''
+    numberInput.value =''
     errorMessege(error.response.data.error)
   }
 }
@@ -73,6 +78,8 @@ async function updateContact() {
     addNewContentDiv.style.display = 'none'
 
   } catch (error) {
+    nameInput.value =''
+    numberInput.value =''
     errorMessege(error.response.data.error)
   }
 }
@@ -94,6 +101,8 @@ async function addNewContact() {
     addNewContentDiv.style.display = 'none'
 
   } catch (error) {
+    nameInput.value =''
+    numberInput.value =''
     errorMessege(error.response.data.error)
   }
 }
@@ -147,10 +156,10 @@ async function generatePhoneBookToDom() {
       const nameElem = createElement('label', phoneMember.name , 'name')
       const numberElem = createElement('label', phoneMember.number , 'number')
       const buttonContainer = createElement('div', '', 'button-container')
-      const removeButton = createElement('button', 'Delete' , 'delte-btn')
+      const removeButton = createElement('button', '🗑' , 'delte-btn')
       // Adding remove content API request function as listener + update phoeBook
       removeButton.addEventListener('click', removeContentFromDom)
-      const callButton = createElement('button', 'Call' , 'call-btn')
+      const callButton = createElement('button', '📞' , 'call-btn')
       callButton.addEventListener('click', () =>
         swal({
           title: `Calling ${phoneMember.name}...`,
@@ -188,6 +197,13 @@ function removeContentFromDom(event) {
     deletefromPhoneBook(phoneMemberIdNum) // Delete from DB
     generatePhoneBookToDom() //Update the DOM according to changes
     generateInfoToDom() //Update info on DOM
+    swal({
+      title: 'Deleted!',
+      timer: 5000,
+      icon: 'success',
+      button: false,
+      closeOnClickOutside: true,
+    })
   } catch (error) {
     errorMessege(error.response.data.error)
   }
