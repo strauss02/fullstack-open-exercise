@@ -42,6 +42,10 @@ serchBar.addEventListener('keyup', () => {
 //Check if name is already exsist in the DB - if so will sent put request and update the number, else will add him by post request
 async function addContactHandler() {
   try {
+    if (!nameInput.value) {
+      errorMessege('Must enter name', errorDiv)
+      return
+    }
     const response = await axios.get(`${BASEURL}/api/persons/names/${nameInput.value}`)
     if (response.data) {
       updateContact() //Name already on phoneBook, update number
