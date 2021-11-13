@@ -70,18 +70,19 @@ exports.addContact = async (req, res, next) => {
     //Check if one of the details has not been entered
     if (!name || !phoneNumber) {
       next({ status: 400, messege: 'Must enter name and number' })
-    }
-    const contact = new Contact({ name, number: phoneNumber })
-    contact
-      .save()
-      .then(() => res.status(200).send(true))
-      .catch(() => {
-        next({
-          status: 400,
-          messege:
-            'Can\'t add new contact, number has to have 8 digits, name has to have 3 letters',
+    } else {
+      const contact = new Contact({ name, number: phoneNumber })
+      contact
+        .save()
+        .then(() => res.status(200).send(true))
+        .catch(() => {
+          next({
+            status: 400,
+            messege:
+              'Can\'t add new contact, number has to have 8 digits, name has to have 3 letters',
+          })
         })
-      })
+    }
   } catch (error) {
     next({ status: error.status, messege: error.messege })
   }
@@ -94,15 +95,16 @@ exports.updateContact = async (req, res, next) => {
     //Check if one of the details has not been entered
     if (!name || !phoneNumber) {
       next({ status: 400, messege: 'Must enter name and number' })
-    }
-    Contact.findOneAndUpdate({ name }, { number: phoneNumber })
-      .then(() => res.status(200).send(true))
-      .catch(() => {
-        next({
-          status: 400,
-          messege: 'Can\'t update contact, try to choose another name or number',
+    } else {
+      Contact.findOneAndUpdate({ name }, { number: phoneNumber })
+        .then(() => res.status(200).send(true))
+        .catch(() => {
+          next({
+            status: 400,
+            messege: 'Can\'t update contact, try to choose another name or number',
+          })
         })
-      })
+    }
   } catch (error) {
     next({ status: error.status, messege: error.messege })
   }
